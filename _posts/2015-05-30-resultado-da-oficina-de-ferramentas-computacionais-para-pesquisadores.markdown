@@ -12,6 +12,13 @@ comments:
       picture: 'https://avatars.githubusercontent.com/u/1068752?v=3&s=73'
     content: teste
     date: 2015-10-06T17:11:05.394Z
+  - author:
+      type: full
+      displayName: abelsiqueira
+      url: 'https://github.com/abelsiqueira'
+      picture: 'https://avatars.githubusercontent.com/u/1068752?v=3&s=73'
+    content: teste
+    date: 2015-10-06T17:24:36.569Z
 
 ---
 Hoje aconteceu a [Oficina de Ferramentas Computacionais para

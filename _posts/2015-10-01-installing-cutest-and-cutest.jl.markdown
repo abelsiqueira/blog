@@ -12,6 +12,13 @@ comments:
       picture: 'https://avatars.githubusercontent.com/u/1068752?v=3&s=73'
     content: Commenting
     date: 2015-10-06T14:12:35.435Z
+  - author:
+      type: full
+      displayName: abelsiqueira
+      url: 'https://github.com/abelsiqueira'
+      picture: 'https://avatars.githubusercontent.com/u/1068752?v=3&s=73'
+    content: Testando
+    date: 2015-10-06T17:09:12.437Z
 
 ---
 

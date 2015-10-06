@@ -1,9 +1,25 @@
 ---
-layout:      post
-title:       Installing CUTEst and CUTEst.jl
-date:        2015-10-01
-categories:  cutest julia sifdecode optimization
-name:        2015-10-01-installing-cutest-and-cutest.jl
+layout: post
+title: Installing CUTEst and CUTEst.jl
+date: 2015-10-01T00:00:00.000Z
+categories: cutest julia sifdecode optimization
+name: 2015-10-01-installing-cutest-and-cutest.jl
+comments:
+  - author:
+      type: full
+      displayName: abelsiqueira
+      url: 'https://github.com/abelsiqueira'
+      picture: 'https://avatars.githubusercontent.com/u/1068752?v=3&s=73'
+    content: Commenting
+    date: 2015-10-06T14:12:35.435Z
+  - author:
+      type: full
+      displayName: abelsiqueira
+      url: 'https://github.com/abelsiqueira'
+      picture: 'https://avatars.githubusercontent.com/u/1068752?v=3&s=73'
+    content: Testando
+    date: 2015-10-06T17:09:12.437Z
+
 ---
 
 This post will tell you how to install CUTEst using a different tool that makes

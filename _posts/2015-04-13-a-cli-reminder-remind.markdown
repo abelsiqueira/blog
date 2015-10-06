@@ -1,9 +1,18 @@
 ---
-layout:     post
-title:      A CLI Reminder - Remind
-date:       2015-04-13
+layout: post
+title: A CLI Reminder - Remind
+date: 2015-04-13T00:00:00.000Z
 categories: public-utility
-name:       remind
+name: remind
+comments:
+  - author:
+      type: full
+      displayName: abelsiqueira
+      url: 'https://github.com/abelsiqueira'
+      picture: 'https://avatars.githubusercontent.com/u/1068752?v=3&s=73'
+    content: teste
+    date: 2015-10-06T17:26:05.596Z
+
 ---
 I've struggled with remembering appointments and tasks for a long time.
 During my undergraduate courses, I learned to manage the tasks I had because

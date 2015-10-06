@@ -1,19 +1,28 @@
 ---
-layout:     post
-title:      Resultado da Oficina de Ferramentas Computacionais Para Pesquisadores
-date:       2015-05-30
+layout: post
+title: Resultado da Oficina de Ferramentas Computacionais Para Pesquisadores
+date: 2015-05-30T00:00:00.000Z
 categories: public-utility
-name:       oficina-2015-05-30-postmortem
+name: oficina-2015-05-30-postmortem
+comments:
+  - author:
+      type: full
+      displayName: abelsiqueira
+      url: 'https://github.com/abelsiqueira'
+      picture: 'https://avatars.githubusercontent.com/u/1068752?v=3&s=73'
+    content: teste
+    date: 2015-10-06T17:11:05.394Z
+
 ---
 Hoje aconteceu a [Oficina de Ferramentas Computacionais para
 Pesquisadores]({{site.baseurl}}/workshop-2015-05-30).
-Como era esperado, tivemos um pouco de atrasado, mas n√£o tanto.
-Conseguimos come√ßar uns 5 minutos depois do esperado, mas n√£o conseguimos fazer
-chamada. O per√≠odo da manh√£ teve por volta de 20 participantes, sendo que alguns
+Como era esperado, tivemos um pouco de atrasado, mas n„o tanto.
+Conseguimos comeÁar uns 5 minutos depois do esperado, mas n„o conseguimos fazer
+chamada. O perÌodo da manh„ teve por volta de 20 participantes, sendo que alguns
 eram meus alunos que vieram pelo Julia. Algumas pessoas foram embora durante o
-almo√ßo, e a oficina acabou com 15 participantes.
+almoÁo, e a oficina acabou com 15 participantes.
 
-Veja tamb√©m o [post do Raniere](http://blog.rgaiacs.com/2015/05/31/ufpr.html)
+Veja tambÈm o [post do Raniere](http://blog.rgaiacs.com/2015/05/31/ufpr.html)
 sobre a oficina.
 
 # Material
@@ -21,47 +30,47 @@ sobre a oficina.
 Eu utilizei os materiais
 
   - [Slides de Julia]({{site.baseurl}}/assets/2015-05-30-slides-julia.pdf) -
-    [C√≥digo](http://gitlab.com/abelsiqueira/pres-julia).
+    [CÛdigo](http://gitlab.com/abelsiqueira/pres-julia).
   - [Slides de Git]({{site.baseurl}}/assets/2015-05-30-slides-git.pdf) -
-    [C√≥digo](http://github.com/abelsiqueira/workshop).
+    [CÛdigo](http://github.com/abelsiqueira/workshop).
 
 # Dificuldades
 
-Como √© natural nesse tipo de evento, tivemos algumas dificuldades com
-compatibilidade. Algumas pessoas n√£o conseguiram instalar as ferramentas, outras
-tinham vers√µes diferentes. Felizmente, conseguimos arrumar a maior parte desses
+Como È natural nesse tipo de evento, tivemos algumas dificuldades com
+compatibilidade. Algumas pessoas n„o conseguiram instalar as ferramentas, outras
+tinham versıes diferentes. Felizmente, conseguimos arrumar a maior parte desses
 problemas.
 
-A internet tamb√©m foi um problema. Os pontos de cabo eram com IP est√°tico, ent√£o
+A internet tambÈm foi um problema. Os pontos de cabo eram com IP est·tico, ent„o
 trouxemos um roteador e configuramos internet wireless.
-Isso nos permitiu instalar programas para os que n√£o conseguiram, e tamb√©m nos
+Isso nos permitiu instalar programas para os que n„o conseguiram, e tambÈm nos
 permitiu fazer a parte de git remoto. Infelizmente a internet estava muita
-lenta, em muitos momentos, por motivos que n√£o sabemos.
+lenta, em muitos momentos, por motivos que n„o sabemos.
 
-Tamb√©m n√£o conseguimos apoio financeiro, ent√£o trouxemos nossa cafeteira e
-compramos dois pacotes de bolacha √°gua e sal, daquelas redondas, tradicionais
+TambÈm n„o conseguimos apoio financeiro, ent„o trouxemos nossa cafeteira e
+compramos dois pacotes de bolacha ·gua e sal, daquelas redondas, tradicionais
 para evento.
 
-Tamb√©m tivemos o problema de tempo, mas isso n√£o pode ser resolvido *no tempo
-dispon√≠vel*.
+TambÈm tivemos o problema de tempo, mas isso n„o pode ser resolvido *no tempo
+disponÌvel*.
 
 # Planos futuros
 
-Considero essa oficina um sucesso. Tivemos v√°rios interessados, e conseguimos
-passar uma boa quantidade de conte√∫do. Todos sa√≠ram com alguma coisa
-funcionando, e a maioria saiu com um usu√°rio do GitHub.
+Considero essa oficina um sucesso. Tivemos v·rios interessados, e conseguimos
+passar uma boa quantidade de conte˙do. Todos saÌram com alguma coisa
+funcionando, e a maioria saiu com um usu·rio do GitHub.
 
 Idealmente, faremos outras oficinas, e agora que temos mais pessoas
 capacitando-se, podemos ter outras pessoas apresentando. E fazer algumas
-apresenta√ß√µes mais avan√ßadas.
+apresentaÁıes mais avanÁadas.
 
 # Agradecimentos
 
-Agrade√ßo o Raniere, por ter aceitado participar do evento, e tamb√©m
-√† Kally Chung e ao [Fernando Mayer](https://fernandomayer.github.io/) que
+AgradeÁo o Raniere, por ter aceitado participar do evento, e tambÈm
+‡ Kally Chung e ao [Fernando Mayer](https://fernandomayer.github.io/) que
 toparam ficar de monitores.
 
 # Certificados
 
-Alguns certificados ser√£o emitidos, e ser√£o disponibilizados aqui, ou enviados
+Alguns certificados ser„o emitidos, e ser„o disponibilizados aqui, ou enviados
 por e-mail, em breve.

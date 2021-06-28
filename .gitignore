@@ -1,0 +1,10 @@
+__site/
+.DS_Store
+franklin
+franklin.pub
+node_modules/
+_css
+_layout
+_libs
+dados.csv
+_rss

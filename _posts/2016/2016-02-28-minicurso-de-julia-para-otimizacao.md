@@ -32,10 +32,10 @@ Alternativamente, use o [JuliaBox](https://juliabox.org/) para rodá-los online.
 
 Além disso, para a segunda aula em diante você precisa do CUTEst, que pode ser
 instalado seguindo
-[este post](/blog//installing-cutest-and-cutest.jl/).
+[este post]({{prepath}}/installing-cutest-and-cutest.jl/).
 
 Minha recomendação de editor é o [Atom](http://atom.io), com os plugins
 `language-julia` e `latex-completions`.
 
 Para uma experiência com testes automatizados, veja também
-[este post](/blog//automated-testing/).
+[este post]({{prepath}}/automated-testing/).

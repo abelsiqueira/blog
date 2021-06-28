@@ -66,7 +66,7 @@ The value $P_s(1)$ is called the efficiency of algorithm $s$ and $P_s(r _
 
 The following image shows an example of performance profile:
 
-![](/blog//assets/perprof-example.png).
+![]({{prepath}}/assets/perprof-example.png).
 
 ### Example
 
@@ -97,7 +97,7 @@ ylims!(0, 1)
 
 The resulting image is
 
-![](/blog//assets/perprof-julia.png).
+![]({{prepath}}/assets/perprof-julia.png).
 
 ### Implementations
 

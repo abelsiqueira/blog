@@ -9,7 +9,7 @@
 
 Some time ago, I helped a colleague [install Ubuntu in a Sony Vaio, which ended
 up having SSD
-problems](/blog//instalando-o-ubuntu-14.10-no-sony-vaio/).
+problems]({{prepath}}/instalando-o-ubuntu-14.10-no-sony-vaio/).
 Today, his computer started without the bar and menu from Unity.
 Only the desktop and icons were appearing, and the keyboards shortcuts were also
 not working.

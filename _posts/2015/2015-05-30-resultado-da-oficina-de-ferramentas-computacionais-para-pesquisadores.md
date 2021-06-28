@@ -7,7 +7,7 @@
 # Resultado da Oficina de Ferramentas Computacionais Para Pesquisadores
 
 Hoje aconteceu a [Oficina de Ferramentas Computacionais para
-Pesquisadores](/blog//workshop-2015-05-30).
+Pesquisadores]({{prepath}}/workshop-2015-05-30).
 Como era esperado, tivemos um pouco de atrasado, mas não tanto.
 Conseguimos começar uns 5 minutos depois do esperado, mas não conseguimos fazer
 chamada. O período da manhã teve por volta de 20 participantes, sendo que alguns
@@ -21,11 +21,11 @@ sobre a oficina.
 
 Eu utilizei os materiais
 
-  - [Slides de Julia](/blog//assets/2015-05-30-slides-julia.pdf) -
+  - [Slides de Julia]({{prepath}}/assets/2015-05-30-slides-julia.pdf) -
 ```
 [Código](http://gitlab.com/abelsiqueira/pres-julia).
 ```
-  - [Slides de Git](/blog//assets/2015-05-30-slides-git.pdf) -
+  - [Slides de Git]({{prepath}}/assets/2015-05-30-slides-git.pdf) -
 ```
 [Código](http://github.com/abelsiqueira/workshop).
 ```

@@ -7,6 +7,6 @@ for year in reverse(readdir(dir))
   for fmd in reverse(readdir(joinpath(dir, year)))
     f = split(fmd, ".")[1]
     path = joinpath(dir, year, f)
-    println("- {{fill date $path}}, [{{fill title $path}}](/$path)")
+    println("- {{fill date $path}}, [{{fill title $path}}]($path)")
   end
 end

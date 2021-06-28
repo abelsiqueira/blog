@@ -1,0 +1,72 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blog/libs/highlight/github.min.css"> <link href="/blog/css/bootstrap.min.css" rel=stylesheet  crossorigin=anonymous > <link rel=icon  href="/blog/images/logo.png"> <link rel=stylesheet  href="/blog/css/code-katex.css"> <link rel=stylesheet  href="/blog/css/custom.css"> <link rel=stylesheet  href="/blog/css/dark-mode.css"> <link rel=preconnect  href="https://fonts.gstatic.com"> <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat&display=swap" rel=stylesheet > <title>Installing Gurobi 7 on Linux</title> <meta property="og:title" content="Abel Soares Siqueira"> <meta name="twitter:title" content="Abel Soares Siqueira"> <meta property="og:description" content="Installing Gurobi 7 on Linux"> <meta name="twitter:description" content="Installing Gurobi 7 on Linux"> <meta property="og:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta name="twitter:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta property="og:url" content=abelsiqueira.github.io > <meta name="twitter:card" content=summary_large_image > <header> <nav class="navbar navbar-expand-lg"> <div class=container-fluid > <a class="navbar-brand text-end" href="/blog/"></a> <button class=navbar-toggler  type=button  data-bs-toggle=collapse  data-bs-target="#navbarSupportedContent" aria-controls=navbarSupportedContent  aria-expanded=false  aria-label="Toggle navigation"> <span class=navbar-toggler-icon ></span> </button> <div class="collapse navbar-collapse" id=navbarSupportedContent > <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <li class=nav-item ><a class=nav-link  href="/blog/">Home</a> <li class=nav-item ><a class=nav-link  href="/blog/blog/">Blog</a> <li class=nav-item ><a class=nav-link  href="/blog/julia/">Julia</a> <li class=nav-item ><a class=nav-link  href="/blog/research/">Research</a> <li class=nav-item ><a class=nav-link  href="/blog/ufpr/">UFPR</a> </ul> <div class="dark-switch form-check form-switch"> <input type=checkbox  class=form-check-input  id=darkSwitch  /> <label class=custom-control-label  for=darkSwitch >Dark Mode</label> </div> <script src="/blog/libs/dark-mode-switch.min.js"></script> </div> </div> </nav> </header> <div class=container-fluid > <div class="container main-text"> <div class=franklin-content ><h1 id=installing_gurobi_7_on_linux ><a href="#installing_gurobi_7_on_linux" class=header-anchor >Installing Gurobi 7 on Linux</a></h1> <p><em>Disclaimer:</em> What I did here might work on Windows or OSX, but I give no guarantee.</p> <p><em>Request by Clóvis Gonzaga.</em></p> <p>First, create an account <a href="http://www.gurobi.com/">here</a> and login.</p> <p>Secondly, download the appropriate Gurobi version clicking on <a href="http://www.gurobi.com/downloads/user/gurobi-optimizer"><em>Gurobi Optimizer</em></a>. In my case, it is Linux 64 bits. Where to download this is optional, but you have to remember, as we&#39;ll use later. I use a folder <code>packages</code> on my home folder.</p> <p>Third, unpack the file. For linux, you might have a <em>file-roller</em> that allows clicking and unpacking trivially, but I&#39;ll use the command line. Open a terminal and navigate to the folder where you downloaded the file.</p> <pre><code class="julia hljs">tar -zxf gurobi7<span class=hljs-number >.0</span><span class=hljs-number >.2_</span>linux64.tar.gz</code></pre>
+<p>This creates folder <code>gurobi702</code>. Inside is folder <code>linux64</code>. Inside are many folders, one being <code>docs</code> which include the quick start guide you might want to read &#40;or not&#41;.</p>
+<p>Fourth, your system needs to see this installation. On <code>bash</code> &#40;the usual terminal on Ubuntu&#41;, you have to open file <code>.bashrc</code> on your home folder, to input some variables.</p>
+<pre><code class="julia hljs">gedit $HOME/.bashrc</code></pre>
+<p>input the following at the end of the file:</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >export</span> GUROBI_HOME=<span class=hljs-string >&quot;/FULL/PATH/gurobi702/linux64&quot;</span>
+<span class=hljs-keyword >export</span> PATH=<span class=hljs-string >&quot;${PATH}:${GUROBI_HOME}/bin&quot;</span>
+<span class=hljs-keyword >export</span> LD_LIBRARY_PATH=<span class=hljs-string >&quot;${LD_LIBRARY_PATH}:${GUROBI_HOME}/lib&quot;</span>
+<span class=hljs-keyword >export</span> GRB_LICENSE_FILE=<span class=hljs-string >&quot;<span class=hljs-variable >$HOME</span>/gurobi.lic&quot;</span></code></pre>
+<p>Notice the <code>/FULL/PATH</code> part. This is where you downloaded the package, but it has to be the full path there. You can use <code>&#36;HOME</code> to reference your home folder. For instance, your <code>Desktop</code> is in <code>&#36;HOME/Desktop</code>. My packages folder is <code>&#36;HOME/packages</code>. Also notice the <code>GRB_LICENSE_FILE</code> variable. If you intend to put your license somewhere else, you&#39;ll need to change that part.</p>
+<p>After that is done you need to either &#40;a&#41; close and reopen the terminal or &#40;b&#41; input <code>source &#36;HOME/.bashrc</code>.</p>
+<p><strong>To know that it&#39;s working</strong> enter <code>grbgetkey</code> on the terminal. If it&#39;s working, a message like</p>
+<pre><code class="julia hljs">Gurobi license key client (version <span class=hljs-number >7.0</span><span class=hljs-number >.2</span>)
+Copyright (c) <span class=hljs-number >2017</span>, Gurobi Optimization, Inc.
+
+Enter the Key Code <span class=hljs-keyword >for</span> the license you are activating
+(format is xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx):</code></pre>
+<p>will appear. Press &quot;CTRL&#43;C&quot; or close the terminal, because you need to get the license.</p>
+<h2 id=getting_the_license ><a href="#getting_the_license" class=header-anchor >Getting the LICENSE</a></h2>
+<p>If you already applied for a license before installing Gurobi, you can go to <a href="https://user.gurobi.com/download/licenses/current">this page</a> to see your available licenses. Otherwise, you need to &#40;a&#41; buy a license; &#40;b&#41; apply for an academic license or &#40;c&#41; ask for a trial license. I&#39;m gonna focus on the academic license.</p>
+<p>Get your academic license clicking on <a href="http://www.gurobi.com/downloads/user/licenses/free-academic">&quot;Academic Licenses&quot;</a>. Accept the conditions and agreements and click &quot;Request License&quot;. Notice that you need to fulfill some requirement to ask for an academic license, like being a student or professor.</p>
+<p>After requesting your license, you will get to a page showing your license information and a line saying</p>
+<pre><code class="julia hljs">grbgetkey xxxxxxxxxxxxxx</code></pre>
+<p>Copy all that line and paste on your terminal.</p>
+<p>The software will connect to Gurobi and check that it&#39;s a valid serial number, and then will download a file <code>gurobi.lic</code>. &#40;Press ENTER or choose a different folder&#41;. If you choose a different folder, remember to change <code>.bashrc</code> accordingly.</p>
+<p>To check that it&#39;s working, enter</p>
+<pre><code class="julia hljs">gurobi.sh</code></pre>
+<p>on a terminal. It will a &quot;Gurobi Interactive Shell&quot; message and a prompt &quot;gurobi&gt; &quot;. It if gives any error, check the Quick User Guide.</p>
+<h2 id=gurobi_with_jump_in_julia ><a href="#gurobi_with_jump_in_julia" class=header-anchor >Gurobi with JuMP in Julia</a></h2>
+<p>For the advanced students, if you know the <a href="https://julialang.org">Julia Language</a>, and the <a href="https://github.com/JuliaOpt/JuMP.jl">JuMP Modelling Language</a>, you should be able to install Gurobi with the julia command <code>Pkg.add&#40;&quot;Gurobi&quot;&#41;</code> now. Make sure you&#39;re in a terminal with all variables set.</p>
+<p>The following examples solves a simple problem with JuMP and Gurobi:</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >using</span> JuMP, Gurobi
+
+m = Model(solver=GurobiSolver(Presolve=<span class=hljs-number >0</span>)) <span class=hljs-comment ># Presolve=0 otherwise it will be trivial</span>
+<span class=hljs-meta >@variable</span>(m, x[<span class=hljs-number >1</span>:<span class=hljs-number >2</span>] &gt;= <span class=hljs-number >0</span>, <span class=hljs-built_in >Int</span>)
+<span class=hljs-meta >@objective</span>(m, Max, x[<span class=hljs-number >1</span>] + <span class=hljs-number >2</span>*x[<span class=hljs-number >2</span>])
+<span class=hljs-meta >@constraint</span>(m, x[<span class=hljs-number >1</span>] + <span class=hljs-number >10</span>*x[<span class=hljs-number >2</span>] &lt;= <span class=hljs-number >30</span>)
+<span class=hljs-meta >@constraint</span>(m, <span class=hljs-number >10</span>*x[<span class=hljs-number >1</span>] + x[<span class=hljs-number >2</span>] &lt;= <span class=hljs-number >29</span>)
+solve(m)
+getvalue(x)</code></pre>
+</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="container text-center social-footer">
+    <a href="mailto:abel.s.siqueira@gmail.com">
+        <i class="fas fa-2x fa-envelope" aria-hidden=true ></i>
+    </a><a href="https://github.com/abelsiqueira">
+        <i class="fab fa-2x fa-github-square" aria-hidden=true ></i>
+    </a><a href="https://linkedin.com/in/abel-siqueira/">
+        <i class="fab fa-2x fa-linkedin" aria-hidden=true ></i>
+    </a><a href="https://twitter.com/abel_siqueira">
+        <i class="fab fa-2x fa-twitter-square" aria-hidden=true ></i>
+    </a><a href="https://www.researchgate.net/profile/Abel_Siqueira">
+        <i class="fab fa-2x fa-researchgate" aria-hidden=true ></i>
+    </a><a href="http://orcid.org/0000-0003-4451-281X">
+        <i class="fab fa-2x fa-orcid" aria-hidden=true ></i>
+    </a>
+</div>
+</footer>
+
+
+
+
+
+
+
+<script src="/blog/libs/bootstrap.bundle.min.js" crossorigin=anonymous ></script>
+<script src="https://kit.fontawesome.com/d17d5e5245.js" crossorigin=anonymous ></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/pcooksey/bibtex-js/ef59e62c/src/bibtex_js.js"></script>

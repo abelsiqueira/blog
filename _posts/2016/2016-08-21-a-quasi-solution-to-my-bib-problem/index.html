@@ -1,0 +1,49 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blog/libs/highlight/github.min.css"> <link href="/blog/css/bootstrap.min.css" rel=stylesheet  crossorigin=anonymous > <link rel=icon  href="/blog/images/logo.png"> <link rel=stylesheet  href="/blog/css/code-katex.css"> <link rel=stylesheet  href="/blog/css/custom.css"> <link rel=stylesheet  href="/blog/css/dark-mode.css"> <link rel=preconnect  href="https://fonts.gstatic.com"> <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat&display=swap" rel=stylesheet > <title>A quasi-solution to my bib problem</title> <meta property="og:title" content="Abel Soares Siqueira"> <meta name="twitter:title" content="Abel Soares Siqueira"> <meta property="og:description" content="A quasi-solution to my bib problem"> <meta name="twitter:description" content="A quasi-solution to my bib problem"> <meta property="og:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta name="twitter:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta property="og:url" content=abelsiqueira.github.io > <meta name="twitter:card" content=summary_large_image > <header> <nav class="navbar navbar-expand-lg"> <div class=container-fluid > <a class="navbar-brand text-end" href="/blog/"></a> <button class=navbar-toggler  type=button  data-bs-toggle=collapse  data-bs-target="#navbarSupportedContent" aria-controls=navbarSupportedContent  aria-expanded=false  aria-label="Toggle navigation"> <span class=navbar-toggler-icon ></span> </button> <div class="collapse navbar-collapse" id=navbarSupportedContent > <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <li class=nav-item ><a class=nav-link  href="/blog/">Home</a> <li class=nav-item ><a class=nav-link  href="/blog/blog/">Blog</a> <li class=nav-item ><a class=nav-link  href="/blog/julia/">Julia</a> <li class=nav-item ><a class=nav-link  href="/blog/research/">Research</a> <li class=nav-item ><a class=nav-link  href="/blog/ufpr/">UFPR</a> </ul> <div class="dark-switch form-check form-switch"> <input type=checkbox  class=form-check-input  id=darkSwitch  /> <label class=custom-control-label  for=darkSwitch >Dark Mode</label> </div> <script src="/blog/libs/dark-mode-switch.min.js"></script> </div> </div> </nav> </header> <div class=container-fluid > <div class="container main-text"> <div class=franklin-content ><h1 id=a_quasi-solution_to_my_bib_problem ><a href="#a_quasi-solution_to_my_bib_problem" class=header-anchor >A quasi-solution to my bib problem</a></h1> <p>For some time, one of my concerns is bibliography management. See my <a href="http://abelsiqueira.github.io/en/projects/">projects page</a> if you have interest on working with something like that.</p> <p>In the past, what we had was simply writing all your bibliographies directly on a .tex file. Then, if you needed to write again, you would copy-paste it somewhere. If you made a mistake, you would have to fix it by hand. If the journal changed styles, you would have to change everything by hand. <strong>If you&#39;re still doing this. STOP.</strong></p> <p>Then, we got BibTeX and all it&#39;s reimplementations. BibTeX allows you to define key-value pairs and process to the specific style desired. So, this</p> <pre><code class="julia hljs">\bibitem{key} Author, S.: <span class=hljs-built_in >Some</span> Title. Journal of Something, <span class=hljs-number >10</span>, <span class=hljs-number >200</span>-<span class=hljs-number >230</span>, (<span class=hljs-number >2016</span>)</code></pre>
+<p>which was written directly in the .tex, changed to this</p>
+<pre><code class="julia hljs"><span class=hljs-meta >@journal</span>{key,
+author = <span class=hljs-string >&quot;Some Author&quot;</span>,
+title = <span class=hljs-string >&quot;Some title&quot;</span>,
+journal = <span class=hljs-string >&quot;Journal of something&quot;</span>,
+volume = <span class=hljs-string >&quot;10&quot;</span>,
+pages = <span class=hljs-string >&quot;200-230&quot;</span>,
+year = <span class=hljs-string >&quot;2016&quot;</span>
+}</code></pre>
+<p>in a different .bib file, and the .tex had 4-5 lines adding a package, options, style, the .bib file, and where to put the bib.</p>
+<p>This is useful. Really, it is. Perhaps you don&#39;t think so, because you have to learn something new, and it looks strange &#40;?&#41;, and nobody uses it &#40;??&#41;, but really, it is useful. Keep reading.</p>
+<p>Now, we need something new. BibTeX was created 31 years ago, and it really needed something new. Well, it has. You wanna you <strong>BibLaTeX</strong> now, instead of BibTeX, but it works in the same way. But what we really need is something new, and smarter.</p>
+<p>Computers are very fast and smart now, we can have something more useful. Something in the cloud &#40;#thereisnocloud&#41;, some server-like thing using HTML5. Use JSON.</p>
+<p>Anyway, the BibTeX problem is a part of the LaTeX problem, which is also too old, but there is nothing fully working as good right now.</p>
+<p>For now, I found some middle ground, specially if you&#39;re trying to leave writing directly on the .tex, and wants to create a .bib file.</p>
+<p>Use JabRef &#43; JabFox. Search each entry of your bibliography and use JabFox to save it. There is an option to update the entries that have DOI, so do that too. Then you can generate your .bib as needed.</p>
+</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="container text-center social-footer">
+    <a href="mailto:abel.s.siqueira@gmail.com">
+        <i class="fas fa-2x fa-envelope" aria-hidden=true ></i>
+    </a><a href="https://github.com/abelsiqueira">
+        <i class="fab fa-2x fa-github-square" aria-hidden=true ></i>
+    </a><a href="https://linkedin.com/in/abel-siqueira/">
+        <i class="fab fa-2x fa-linkedin" aria-hidden=true ></i>
+    </a><a href="https://twitter.com/abel_siqueira">
+        <i class="fab fa-2x fa-twitter-square" aria-hidden=true ></i>
+    </a><a href="https://www.researchgate.net/profile/Abel_Siqueira">
+        <i class="fab fa-2x fa-researchgate" aria-hidden=true ></i>
+    </a><a href="http://orcid.org/0000-0003-4451-281X">
+        <i class="fab fa-2x fa-orcid" aria-hidden=true ></i>
+    </a>
+</div>
+</footer>
+
+
+
+
+
+
+
+<script src="/blog/libs/bootstrap.bundle.min.js" crossorigin=anonymous ></script>
+<script src="https://kit.fontawesome.com/d17d5e5245.js" crossorigin=anonymous ></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/pcooksey/bibtex-js/ef59e62c/src/bibtex_js.js"></script>

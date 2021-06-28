@@ -1,0 +1,237 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blog/libs/katex/katex.min.css"> <link rel=stylesheet  href="/blog/libs/highlight/github.min.css"> <link href="/blog/css/bootstrap.min.css" rel=stylesheet  crossorigin=anonymous > <link rel=icon  href="/blog/images/logo.png"> <link rel=stylesheet  href="/blog/css/code-katex.css"> <link rel=stylesheet  href="/blog/css/custom.css"> <link rel=stylesheet  href="/blog/css/dark-mode.css"> <link rel=preconnect  href="https://fonts.gstatic.com"> <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat&display=swap" rel=stylesheet > <title>NLPModels.jl, CUTEst.jl and other Nonlinear Optimization Packages on Julia</title> <meta property="og:title" content="Abel Soares Siqueira"> <meta name="twitter:title" content="Abel Soares Siqueira"> <meta property="og:description" content="NLPModels.jl, CUTEst.jl and other Nonlinear Optimization Packages on Julia"> <meta name="twitter:description" content="NLPModels.jl, CUTEst.jl and other Nonlinear Optimization Packages on Julia"> <meta property="og:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta name="twitter:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta property="og:url" content=abelsiqueira.github.io > <meta name="twitter:card" content=summary_large_image > <header> <nav class="navbar navbar-expand-lg"> <div class=container-fluid > <a class="navbar-brand text-end" href="/blog/"></a> <button class=navbar-toggler  type=button  data-bs-toggle=collapse  data-bs-target="#navbarSupportedContent" aria-controls=navbarSupportedContent  aria-expanded=false  aria-label="Toggle navigation"> <span class=navbar-toggler-icon ></span> </button> <div class="collapse navbar-collapse" id=navbarSupportedContent > <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <li class=nav-item ><a class=nav-link  href="/blog/">Home</a> <li class=nav-item ><a class=nav-link  href="/blog/blog/">Blog</a> <li class=nav-item ><a class=nav-link  href="/blog/julia/">Julia</a> <li class=nav-item ><a class=nav-link  href="/blog/research/">Research</a> <li class=nav-item ><a class=nav-link  href="/blog/ufpr/">UFPR</a> </ul> <div class="dark-switch form-check form-switch"> <input type=checkbox  class=form-check-input  id=darkSwitch  /> <label class=custom-control-label  for=darkSwitch >Dark Mode</label> </div> <script src="/blog/libs/dark-mode-switch.min.js"></script> </div> </div> </nav> </header> <div class=container-fluid > <div class="container main-text"> <div class=franklin-content ><h1 id=nlpmodelsjl_cutestjl_and_other_nonlinear_optimization_packages_on_julia ><a href="#nlpmodelsjl_cutestjl_and_other_nonlinear_optimization_packages_on_julia" class=header-anchor >NLPModels.jl, CUTEst.jl and other Nonlinear Optimization Packages on Julia</a></h1> <p>A couple of weeks ago me and Professor <a href="https://dpo.github.io">Dominique Orban</a> have finally made a release of CUTEst.jl, a wrapper for the CUTEst repository of problems for nonlinear optimization &#40;which I&#39;ve mentioned before&#41;. Along with this release, we&#39;ve done a release of NLPModels.jl, the underlying package. I think it&#39;s time I explain a little about these packages, others, and how to use them together. If you want to see the output of the commands, you can open <a href="https://asciinema.org/a/102371">this ASCIInema</a> side by side.</p> <p><em>Obs.: Tutorial using Julia 0.5.0</em></p> <p><em>Edit: Second part is <a href="https://abelsiqueira.github.io/blog/nlpmodelsjl-and-cutestjl-constrained-optimization/">here</a>.</em></p> <p><strong>JuliaSmoothOptimizers</strong> <a href="https://juliasmoothoptimizers.github.io"><img src="https://juliasmoothoptimizers.github.io/assets/logo.png" alt="JuliaSmoothOptimizers logo" />&#123;: .img-view &#125;</a></p> <p>Most packages mentioned here will be a part of the JuliaSmoothOptimizers &#40;JSO&#41; organization. There are more packages in the organization that I won&#39;t mention here, but you should check it out.</p> <p><strong>NLPModels.jl</strong></p> <p>NLPModels is a package for creating Nonlinear Optimization Models. It is focused on the needs of the solver writer, such as the ability to write one solver that works on many models. The package defines a few models, and there are others on the horizon. The ones already done are:</p> <ul> <li><p><strong>ADNLPModel</strong>: A model with automatic differentiation;</p> <li><p><strong>MathProgNLPModel</strong>: A model for <a href="https://github.com/JuliaOpt/MathProgBase.jl">MathProgBase</a>/<a href="http://github.com/JuliaOpt/JuMP.jl">JuMP</a> conversion, whose utility will be shown below &#40;obs: MPB and JuMP are packages from the JuliaOpt organization&#41;;</p> <li><p><strong>SimpleNLPModel</strong>: A model in which nothing is automatic, i.e., all functions have to be provided by the user.</p> <li><p><strong>SlackModel</strong>: A model that changes all inequalities to equalities adding extra variables;</p> <li><p><strong>LBFGSModel</strong> and <strong>LSR1Model</strong>: Models that create quasi-Newton models from another model.</p> </ul> <p>The first two models are designed to be easy to use; the third is useful for efficient model creation in specific cases; the last ones are utility models.</p> <p>Let&#39;s begin by installing NLPModels.jl, and a couple of optional requirements.</p> <pre><code class="julia hljs">Pkg.add(<span class=hljs-string >&quot;NLPModels.jl&quot;</span>)
+Pkg.add(<span class=hljs-string >&quot;JuMP.jl&quot;</span>) <span class=hljs-comment ># Installs ForwardDiff also.</span></code></pre> <p>This should install version 0.1.0. After that, just do</p> <pre><code class="julia hljs"><span class=hljs-keyword >using</span> NLPModels</code></pre>
+<p>Now, let&#39;s create a simple function: Rosenbrock&#39;s.</p>
+<pre><code class="julia hljs">f(x) = (x[<span class=hljs-number >1</span>] - <span class=hljs-number >1</span>)^<span class=hljs-number >2</span> + <span class=hljs-number >100</span>*(x[<span class=hljs-number >2</span>] - x[<span class=hljs-number >1</span>]^<span class=hljs-number >2</span>)^<span class=hljs-number >2</span></code></pre>
+<p>The Rosenbrock problem traditionally starts from <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy=false >(</mo><mo>−</mo><mn>1.2</mn><mo separator=true >,</mo><mn>1.0</mn><mo stretchy=false >)</mo></mrow><annotation encoding="application/x-tex">(-1.2,1.0)</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:1em;vertical-align:-0.25em;"></span><span class=mopen >(</span><span class=mord >−</span><span class=mord >1.2</span><span class=mpunct >,</span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class=mord >1.0</span><span class=mclose >)</span></span></span></span>.</p>
+<pre><code class="julia hljs">x0 = [-<span class=hljs-number >1.2</span>; <span class=hljs-number >1.0</span>]</code></pre>
+<p>Now, we are ready to create the problem.</p>
+<pre><code class="julia hljs">adnlp = ADNLPModel(f, x0)</code></pre>
+<p>Now, we can access the function and derivatives using the <a href="https://juliasmoothoptimizers.github.io/NLPModels.jl/stable/api.html">NLPModels API</a></p>
+<pre><code class="julia hljs">obj(adnlp, adnlp.meta.x0)
+grad(adnlp, adnlp.meta.x0)
+hess(adnlp, adnlp.meta.x0)
+objgrad(adnlp, adnlp.meta.x0)
+hprod(adnlp, adnlp.meta.x0, ones(<span class=hljs-number >2</span>))
+H = hess_op(adnlp, adnlp.meta.x0)
+H * ones(<span class=hljs-number >2</span>)</code></pre>
+<p>At this point, we can&#39;t differentiate many things from simply using <code>ForwardDiff</code> interface directly, but two things stand out: <code>objgrad</code> returns both functions at once, and <code>hess_op</code> returns a <a href="https://github.com/JuliaSmoothOptimizers/LinearOperators.jl">LinearOperator</a>, another structure created in JuliaSmoothOptimizers. This one defines a linear operator, extending Julia matrices in the sense that if</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >using</span> LinearOperators
+n = <span class=hljs-number >100</span>
+A = rand(n, n)
+B = rand(n, n)
+opA = LinearOperator(A)
+opB = LinearOperator(B)
+v = rand(n)</code></pre>
+<p>then <code>&#40;A * B&#41; * v</code> computes the matrix product, whereas <code>&#40;opA * opB&#41; * v</code> won&#39;t. Furthermore, the linear operator can be created from the functions <code>v-&gt;Mp&#40;v&#41;</code> and <code>v-&gt;Mtp&#40;v&#41;</code>, defining the product of the linear operator times a vector and its transpose times a vector.</p>
+<pre><code class="julia hljs">T = LinearOperator(<span class=hljs-number >2</span>, <span class=hljs-number >2</span>, <span class=hljs-comment ># sizes</span>
+                   <span class=hljs-literal >false</span>, <span class=hljs-literal >false</span>,
+                   v-&gt;[-v[<span class=hljs-number >2</span>]; v[<span class=hljs-number >1</span>]], v-&gt;[v[<span class=hljs-number >2</span>]; -v[<span class=hljs-number >1</span>]])
+v = rand(<span class=hljs-number >2</span>)
+T * v
+T&#x27; * v</code></pre>
+<p><em>Obs: In the <code>ADNLPModel</code> case, <code>hess_op</code> returns a linear operator that is actually computing the matrix, but this is a issue to be tackled on the future &#40;PRs welcome&#41;. But we&#39;ll be back with uses for <code>hess_op</code> soon.</em></p>
+<p>The next model is the <code>MathProgNLPModel</code>. This model&#39;s main use is the <code>JuMP</code> modelling language. This is very useful for more elaborate writing, specially with constraints. It does create a little more overhead though, so keep that in mind.</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >using</span> JuMP
+jmp = Model()
+<span class=hljs-meta >@variable</span>(jmp, x[i=<span class=hljs-number >1</span>:<span class=hljs-number >2</span>], start=(x0[i])) <span class=hljs-comment ># x0 from before</span>
+<span class=hljs-meta >@NLobjective</span>(jmp, Min, (x[<span class=hljs-number >1</span>] - <span class=hljs-number >1</span>)^<span class=hljs-number >2</span> + <span class=hljs-number >100</span>*(x[<span class=hljs-number >2</span>] - x[<span class=hljs-number >1</span>]^<span class=hljs-number >2</span>)^<span class=hljs-number >2</span>)
+mpbnlp = MathProgNLPModel(jmp)</code></pre>
+<p>Try the commands again.</p>
+<pre><code class="julia hljs">obj(mpbnlp, mpbnlp.meta.x0)
+grad(mpbnlp, mpbnlp.meta.x0)
+hess(mpbnlp, mpbnlp.meta.x0)
+objgrad(mpbnlp, mpbnlp.meta.x0)
+hprod(mpbnlp, mpbnlp.meta.x0, ones(<span class=hljs-number >2</span>))
+H = hess_op(mpbnlp, mpbnlp.meta.x0)
+H * ones(<span class=hljs-number >2</span>)</code></pre>
+<p>It should be pretty much the same, though there is a little difference in <code>hess</code>. JuMP creates the sparse Hessian, which is better, from a computational point of view.</p>
+<p>Notice how the commands are the same. I&#39;ve actually copy-pasted the commands from above. This allows the write of a solver in just a couple of commands. For instance, a simple <strong>Newton method</strong>.</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >function</span> newton(nlp :: AbstractNLPModel)
+  x = nlp.meta.x0
+  fx = obj(nlp, x)
+  gx = grad(nlp, x)
+  ngx = norm(gx)
+  <span class=hljs-keyword >while</span> ngx &gt; <span class=hljs-number >1e-6</span>
+    Hx = hess(nlp, x)
+    d = -gx
+    <span class=hljs-keyword >try</span>
+      G = chol(Hermitian(Hx, :L)) <span class=hljs-comment ># Make Cholesky work on lower-only matrix.</span>
+      d = -G\(G&#x27;\gx)
+    <span class=hljs-keyword >catch</span> e
+      <span class=hljs-keyword >if</span> !<span class=hljs-keyword >isa</span>(e, Base.LinAlg.PosDefException); rethrow(e); <span class=hljs-keyword >end</span>
+    <span class=hljs-keyword >end</span>
+    t = <span class=hljs-number >1.0</span>
+    xt = x + t * d
+    ft = obj(nlp, xt)
+    <span class=hljs-keyword >while</span> ft &gt; fx + <span class=hljs-number >0.5</span> * t * dot(gx, d)
+      t *= <span class=hljs-number >0.5</span>
+      xt = x + t * d
+      ft = obj(nlp, xt)
+    <span class=hljs-keyword >end</span>
+    x = xt
+    fx = ft
+    gx = grad(nlp, x)
+    ngx = norm(gx)
+  <span class=hljs-keyword >end</span>
+  <span class=hljs-keyword >return</span> x, fx, ngx
+<span class=hljs-keyword >end</span></code></pre>
+<p>And we run in the problems with</p>
+<pre><code class="julia hljs">newton(adnlp)
+newton(mpbnlp)</code></pre>
+<p><em>Write once, use on problems from different sources.</em></p>
+<p>Now, to have more fun, let&#39;s get another package: <a href="https://github.com/JuliaSmoothOptimizers/OptimizationProblems.jl">OptimizationProblems.jl</a>. This package doesn&#39;t have a release yet, so we have to clone it:</p>
+<pre><code class="julia hljs">Pkg.clone(<span class=hljs-string >&quot;https://github.com/JuliaSmoothOptimizers/OptimizationProblems.jl&quot;</span>)</code></pre>
+<p>What we have here is a collection of JuMP models implementing some of the CUTEst problems. Together with <code>NLPModels.jl</code>, we have a good opportunity to test our Newton implementation.</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >using</span> OptimizationProblems
+
+x, fx, ngx = newton(MathProgNLPModel( rosenbrock() ))
+x, fx, ngx = newton(MathProgNLPModel( dixmaanj() ))
+x, fx, ngx = newton(MathProgNLPModel( brownbs() ))</code></pre>
+<p><em>An issue with OptimizationProblems is that it still doesn&#39;t have a way to get all unconstrained problems, for instance. &#40;PRs are welcome&#41;.</em></p>
+<p>So far we used 3 packages from JSO: <code>NLPModels.jl</code>, <code>LinearOperators.jl</code> and <code>OptimizationProblems.jl</code>. It&#39;s time to meet another important package.</p>
+<p><strong>CUTEst.jl</strong></p>
+<p>CUTEst, the Constrained and Unconstrained Testing Environment with safe threads, is a package written in Fortran providing over a thousand problems to allow testing of Nonlinear Programming solvers. However, CUTEst is hard to use by first-timers. Just installing it was already hard. CUTEst.jl provides an interface for CUTEst that is simple to install and use &#40;comparing to the original&#41;.</p>
+<p><em>Obs.: CUTEst.jl does not work on Windows for now. In fact, there is no plan to make it work on Windows because &quot;people interested in doing it&quot;∩&quot;people capable of doing it&quot; &#61; ∅, as far as we&#39;ve looked. If you are in this set, PRs are welcome.</em></p>
+<p>To install CUTEst.jl you need to install something manually. Unfortunately, this is specific for each system. Except for OSX, actually, which is using <a href="https://github.com/optimizers/homebrew-cutest">homebrew-cutest</a>.</p>
+<p>For Linux users, check out <a href="http://juliasmoothoptimizers.github.io/CUTEst.jl/latest/#Installing-1">this page</a>. Essentially, we need <code>libgfortran.so</code> in a visible place. And it&#39;s especially annoying that some distritions don&#39;t put it in a visible place.</p>
+<p>With that done, enter</p>
+<pre><code class="julia hljs">Pkg.add(<span class=hljs-string >&quot;CUTEst&quot;</span>)</code></pre>
+<p>which should install CUTEst.jl 0.1.0.</p>
+<p>Yes, it takes some time.</p>
+<p>Finally, we start using CUTEst with</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >using</span> CUTEst
+
+nlp = CUTEstModel(<span class=hljs-string >&quot;ROSENBR&quot;</span>)</code></pre>
+<p><code>ROSENBR</code> is a CUTEst problem, in case you want the list, see <a href="http://www.cuter.rl.ac.uk/Problems/mastsif.html">here</a>. Keep reading for a way to select them, though.</p>
+<p>Now, let&#39;s solve this CUTEst problem with our Newton method.</p>
+<pre><code class="julia hljs">x, fx, ngx = newton(nlp)</code></pre>
+<p><strong>Yes, exactly like before&#33;</strong>.</p>
+<p>CUTEst is a little more annoying in other aspect also. Like, you can&#39;t have two or more problems open at the same time, and you have to close this problem before opening a new one. &#40;Again, PRs are welcome&#41;.</p>
+<pre><code class="julia hljs">finalize(nlp)
+nlp = CUTEstModel(<span class=hljs-string >&quot;HIMMELBB&quot;</span>)
+x, fx, ngx = newton(nlp)
+finalize(nlp)</code></pre>
+<p>This allows a simple workflow for writing optimization solvers.</p>
+<ul>
+<li><p>Write some problems by hand &#40;using <code>ADNLPModel</code> or <code>MathProgNLPModel</code>&#41;;</p>
+
+<li><p>Test your solvers with these hand-written problems;</p>
+
+<li><p>Repeat last two steps until you believe you&#39;re ready to competitive comparison;</p>
+
+<li><p>Test with CUTEst problems seamlessly.</p>
+
+</ul>
+<p>Now, let&#39;s get back to <code>hess_op</code>. Remember that it used Matrix vector products? Well, CUTEst has separate functions for the product of the Hessian at a point and a vector. Which means that <code>hprod</code> actually computes this product without having to create the matrix. Which means it is, at least, memory-efficient. Furthermore, <code>hess_op</code> will be created with the <code>hprod</code> function, which means it is also memory-efficient.</p>
+<p>Let&#39;s look at a huge problem to feel the difference.</p>
+<pre><code class="julia hljs">nlp = CUTEstModel(<span class=hljs-string >&quot;BOX&quot;</span>)
+nlp.meta.nvar</code></pre>
+<p>Let&#39;s make a simple comparison</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >function</span> foo1()
+  H = hess(nlp, nlp.meta.x0)
+  v = ones(nlp.meta.nvar)
+  <span class=hljs-keyword >return</span> Hermitian(H, :L) * v
+<span class=hljs-keyword >end</span>
+
+<span class=hljs-keyword >function</span> foo2()
+  H = hess_op(nlp, nlp.meta.x0)
+  v = ones(nlp.meta.nvar)
+  <span class=hljs-keyword >return</span> H * v
+<span class=hljs-keyword >end</span>
+
+<span class=hljs-meta >@time</span> w1 = foo1();
+<span class=hljs-meta >@time</span> w2 = foo2();
+norm(w1 - w2)</code></pre>
+<p>Yes, that&#39;s a huge difference.</p>
+<p>This is a very good reason to use <code>hess_op</code> and <code>hprod</code>. But let&#39;s take a step further.</p>
+<p>We can&#39;t implement Cholesky using only <code>hprod</code>s, so our Newton method would actually take a long time to reach a solution for the problem above. To circunvent that, we could try using the Conjugate Gradients Method instead of Cholesky. This would only use Hessian-vector products.</p>
+<p>We arrive on a new package, <a href="https://github.com/JuliaSmoothOptimizers/Krylov.jl">Krylov.jl</a>, which implements Krylov methods. In particular, Conjugate Gradients. This package is also unreleased, so we need to clone it.</p>
+<pre><code class="julia hljs">Pkg.clone(<span class=hljs-string >&quot;https://github.com/JuliaSmoothOptimizers/Krylov.jl&quot;</span>)</code></pre>
+<p>Consider a simple example</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >using</span> Krylov
+A = rand(<span class=hljs-number >3</span>,<span class=hljs-number >3</span>)
+A = A*A&#x27;
+b = A*ones(<span class=hljs-number >3</span>)
+cg(A, b)</code></pre>
+<p>As expected, the system is solver, and the solution is <span class=katex ><span class=katex-mathml ><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy=false >(</mo><mn>1</mn><mo separator=true >,</mo><mn>1</mn><mo separator=true >,</mo><mn>1</mn><mo stretchy=false >)</mo></mrow><annotation encoding="application/x-tex">(1,1,1)</annotation></semantics></math></span><span class=katex-html  aria-hidden=true ><span class=base ><span class=strut  style="height:1em;vertical-align:-0.25em;"></span><span class=mopen >(</span><span class=mord >1</span><span class=mpunct >,</span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class=mord >1</span><span class=mpunct >,</span><span class=mspace  style="margin-right:0.16666666666666666em;"></span><span class=mord >1</span><span class=mclose >)</span></span></span></span>. But let&#39;s do something more.</p>
+<pre><code class="julia hljs">A = -A
+cg(A, b)</code></pre>
+<p>Yes, Krylov does indeed solves the non-positive definite system using Conjugate Gradient. Well, actually, a variant.</p>
+<p>That&#39;s not enough tough. Krylov.jl also accepts an additional argument <code>radius</code> to set a trust-region radius.</p>
+<pre><code class="julia hljs">cg(A, b, radius=<span class=hljs-number >0.1</span>)</code></pre>
+<p>Well, as an exercise I suggest you implement a trust-region version of Newton method, but for now, let&#39;s continue with our line-search version.</p>
+<p>We know now how <code>cg</code> behaves for non-positive definite systems, we can&#39;t make the changes for a new method.</p>
+<pre><code class="julia hljs"><span class=hljs-keyword >function</span> newton2(nlp :: AbstractNLPModel)
+  x = nlp.meta.x0
+  fx = obj(nlp, x)
+  gx = grad(nlp, x)
+  ngx = norm(gx)
+  <span class=hljs-keyword >while</span> norm(gx) &gt; <span class=hljs-number >1e-6</span>
+    Hx = hess_op(nlp, x)
+    d, _ = cg(Hx, -gx)
+    slope = dot(gx, d)
+    <span class=hljs-keyword >if</span> slope &gt;= <span class=hljs-number >0</span> <span class=hljs-comment ># Not a descent direction</span>
+      d = -gx
+      slope = -dot(d,d)
+    <span class=hljs-keyword >end</span>
+    t = <span class=hljs-number >1.0</span>
+    xt = x + t * d
+    ft = obj(nlp, xt)
+    <span class=hljs-keyword >while</span> ft &gt; fx + <span class=hljs-number >0.5</span> * t * slope
+      t *= <span class=hljs-number >0.5</span>
+      xt = x + t * d
+      ft = obj(nlp, xt)
+    <span class=hljs-keyword >end</span>
+    x = xt
+    fx = ft
+    gx = grad(nlp, x)
+    ngx = norm(gx)
+  <span class=hljs-keyword >end</span>
+  <span class=hljs-keyword >return</span> x, fx, ngx
+<span class=hljs-keyword >end</span></code></pre>
+<p>Now, running <code>newton2</code> on our large problem, we obtain</p>
+<pre><code class="julia hljs">x, fx, ngx = newton2(nlp)</code></pre>
+<p>Which is the method working very fast. Less that a second here.</p>
+<hr />
+<p>There is actually another package I&#39;d like to talk about, but it needs some more work for it to be ready for a release:</p>
+<p><strong>Optimize.jl</strong></p>
+<p>Optimize.jl is a package with solvers. We intend to implement some high quality solvers in there, but there is actually more to it. We have in there tools to benchmark packages. These tools should allow the testing of a set of solvers in a set of problems without much fuss, while creating the comparison information, including the performance profile. It also includes, or will include, &quot;parts&quot; of solvers to create your own solver. Like trust-region and line-search algorithms and auxiliary functions and types. Unfortunately, it&#39;s not done enough for me to extend on it, and this is already getting too long.</p>
+<p><strong>End</strong></p>
+<p>I hope you enjoyed this overview of packages. Subscribe to the RSS feed to keep updated in future tutorials. I intend to talk about the constrained part of NLPModels soon.</p>
+</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="container text-center social-footer">
+    <a href="mailto:abel.s.siqueira@gmail.com">
+        <i class="fas fa-2x fa-envelope" aria-hidden=true ></i>
+    </a><a href="https://github.com/abelsiqueira">
+        <i class="fab fa-2x fa-github-square" aria-hidden=true ></i>
+    </a><a href="https://linkedin.com/in/abel-siqueira/">
+        <i class="fab fa-2x fa-linkedin" aria-hidden=true ></i>
+    </a><a href="https://twitter.com/abel_siqueira">
+        <i class="fab fa-2x fa-twitter-square" aria-hidden=true ></i>
+    </a><a href="https://www.researchgate.net/profile/Abel_Siqueira">
+        <i class="fab fa-2x fa-researchgate" aria-hidden=true ></i>
+    </a><a href="http://orcid.org/0000-0003-4451-281X">
+        <i class="fab fa-2x fa-orcid" aria-hidden=true ></i>
+    </a>
+</div>
+</footer>
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/blog/libs/bootstrap.bundle.min.js" crossorigin=anonymous ></script>
+<script src="https://kit.fontawesome.com/d17d5e5245.js" crossorigin=anonymous ></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/pcooksey/bibtex-js/ef59e62c/src/bibtex_js.js"></script>

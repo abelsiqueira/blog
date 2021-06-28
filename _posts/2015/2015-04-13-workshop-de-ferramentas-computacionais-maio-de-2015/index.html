@@ -1,0 +1,98 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blog/libs/highlight/github.min.css"> <link href="/blog/css/bootstrap.min.css" rel=stylesheet  crossorigin=anonymous > <link rel=icon  href="/blog/images/logo.png"> <link rel=stylesheet  href="/blog/css/code-katex.css"> <link rel=stylesheet  href="/blog/css/custom.css"> <link rel=stylesheet  href="/blog/css/dark-mode.css"> <link rel=preconnect  href="https://fonts.gstatic.com"> <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat&display=swap" rel=stylesheet > <title>Workshop de Ferramentas Computacionais - Maio de 2015</title> <meta property="og:title" content="Abel Soares Siqueira"> <meta name="twitter:title" content="Abel Soares Siqueira"> <meta property="og:description" content="Workshop de Ferramentas Computacionais - Maio de 2015"> <meta name="twitter:description" content="Workshop de Ferramentas Computacionais - Maio de 2015"> <meta property="og:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta name="twitter:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta property="og:url" content=abelsiqueira.github.io > <meta name="twitter:card" content=summary_large_image > <header> <nav class="navbar navbar-expand-lg"> <div class=container-fluid > <a class="navbar-brand text-end" href="/blog/"></a> <button class=navbar-toggler  type=button  data-bs-toggle=collapse  data-bs-target="#navbarSupportedContent" aria-controls=navbarSupportedContent  aria-expanded=false  aria-label="Toggle navigation"> <span class=navbar-toggler-icon ></span> </button> <div class="collapse navbar-collapse" id=navbarSupportedContent > <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <li class=nav-item ><a class=nav-link  href="/blog/">Home</a> <li class=nav-item ><a class=nav-link  href="/blog/blog/">Blog</a> <li class=nav-item ><a class=nav-link  href="/blog/julia/">Julia</a> <li class=nav-item ><a class=nav-link  href="/blog/research/">Research</a> <li class=nav-item ><a class=nav-link  href="/blog/ufpr/">UFPR</a> </ul> <div class="dark-switch form-check form-switch"> <input type=checkbox  class=form-check-input  id=darkSwitch  /> <label class=custom-control-label  for=darkSwitch >Dark Mode</label> </div> <script src="/blog/libs/dark-mode-switch.min.js"></script> </div> </div> </nav> </header> <div class=container-fluid > <div class="container main-text"> <div class=franklin-content ><h1 id=workshop_de_ferramentas_computacionais_-_maio_de_2015 ><a href="#workshop_de_ferramentas_computacionais_-_maio_de_2015" class=header-anchor >Workshop de Ferramentas Computacionais - Maio de 2015</a></h1> <h1 id=sobre ><a href="#sobre" class=header-anchor >Sobre</a></h1> <p>No dia 30 de Maio de 2015 acontecerá uma Oficina de Ferramentas Computacionais para Pesquisadores. Essa oficina será focada em três ferramentas básicas para desenvolvimento de software:</p> <ul> <li><p>Bash</p> <li><p>Git</p> <li><p>Julia</p> </ul> <p>O Bash é o terminal tradicinal dos sistemas GNU/Linux &#40;a tela preta&#41;. As possibilidades de uso são ilimitadas, mas vamos focar no básico, tentando chegar até a criação de um script simples.</p> <p>O Git é uma ferramenta para controlar versões de softwares e outros arquivos. Você consegue guardar versões anteriores dos seus arquivos, assim como versões alternativas, com uma estrutura escondida que melhora a organização e o design. Ela é usada principalmente para controle de versões de software, permitindo que cada programador saiba o que foi feito por quem e quando, mas também pode ser utilizado para controle de versões de artigos, teses e apresentações. O <a href="https://github.com/lpoo/modelo_tese_imecc">modelo de tese do IMECC - UNICAMP</a> usa o Git, e este site está <a href="https://github.com/abelsiqueira/abelsiqueira.github.io">armazenado usando o Git</a>. É uma das ferramentas principais para gerenciamento de versões, e <a href="https://git.wiki.kernel.org/index.php/GitProjects">muitos projetos importantes o usam</a>. O Git pode ser usado apenas em seu computador, mas o uso comum envolve algum servidor remoto &#40;principalmente para colaboração&#41;. A oficina tentará mostrar um pouco de cada.</p> <p>Julia é uma nova linguagem de programação que tem o objetivo de ser rápido como C/Fortran, permitindo uma interfaca simples entre C e Fortran, e com sintaxe parecida com a de Matlab e Python. Como é uma linguagem livre, acreditamos ser uma escolha melhor que o Matlab para software livre. Também é uma boa linguagem inicial por ser prática, e tem muito espaço para expansão por nova.</p> <h1 id=ministrantes ><a href="#ministrantes" class=header-anchor >Ministrantes</a></h1> <ul> <li><p><a href="/blog/blog//">Eu</a> - Trabalho com GNU/Linux desde minha graduação,</p> </ul> <pre><code class="julia hljs">e trabalho com software livre. Meus trabalhos individuais são de código
+aberto, e acredito que esse é o caminho mais correto para o desenvolvimento
+acadêmico.</code></pre> <ul> <li><p><a href="http://rgaiacs.com/">Raniere Gaia</a> - Estuda matemática aplicada na</p> </ul> <pre><code class="julia hljs">Universidade Estadual de Campinas, e trabalha em alguns projetos de nível
+internacional. Faz contribuições para Mozilla, e é um membro mantenedor <span class=hljs-keyword >do</span>
+Software Carpentry.</code></pre> <h1 id=requerimentos ><a href="#requerimentos" class=header-anchor >Requerimentos</a></h1> <p>Para participar da oficina voce <strong>precisa de um computador portátil</strong> com alguns softwares instalados. <strong>Idealmente</strong>, um computador com algum tipo Unix &#40;Ubuntu, Fedora, OSX&#41; é melhor para o desenvolvimento <em>na opinião do autor da página</em>. <a href="http://www.quora.com/Is-it-important-for-modern-programmers-to-know-use-Unix-Why">Veja discussões</a>. Além disso, os instrutores não tem o conhecimento para dar suporte completo no Windows &#40;Aceitamos voluntários&#41;. &#40;Nota: Teremos alguns computadores com sistema operacional Windows disponíveis, mas não teremos tempo para testar todos, ou instalar tudo que julgamos essencial&#41;.</p> <p>Softwares que você precisa</p> <ul> <li><p>Bash</p> </ul> <pre><code class="julia hljs">- No GNU/Linux, o Bash já deve estar instalado.
+Procure pelo <span class=hljs-string >`terminal`</span> ou <span class=hljs-string >`console`</span> no seu sistema. Quando ele abrir,
+digite</code></pre> <pre><code class="julia hljs">bash --version</code></pre>
+<pre><code class="julia hljs">Uma mensagem deve aparecer indicando qual versão está instalada.</code></pre>
+<pre><code class="julia hljs">- No OSX, o terminal padrão também é o Bash. Você pode acessar pelo
+<span class=hljs-string >`/Applications/Utilities/`</span>. Dica: coloque o terminal no dock.</code></pre>
+<pre><code class="julia hljs">- No Windows existem algumas opções,
+uma delas é o [Git Bash](http://msysgit.github.io/), que você já usa para o
+Git também.</code></pre>
+<ul>
+<li><p>Git</p>
+
+</ul>
+<pre><code class="julia hljs">- No Windows, instale o [Git Bash](http://msysgit.github.io/), que falei
+acima.
+**Nota**: Uma das opções da instalações é sobre o fim de linha (line
+ending). Escolha a opção de seguir o padrão Unix (ou algo parecido).</code></pre>
+<pre><code class="julia hljs">- No OSX, você pode instalar o Git para Mac baixando um instalador
+[aqui](http://sourceforge.net/projects/git-osx-installer/files/).</code></pre>
+<pre><code class="julia hljs">- Num computador tipo Unix, siga as [instruções](http://git-scm.com/downloads).
+Teste que o git foi instalado fazendo</code></pre>
+<pre><code class="julia hljs">git --version</code></pre>
+<pre><code class="julia hljs">no seu terminal.</code></pre>
+<ul>
+<li><p>Julia: Siga as <a href="http://julialang.org/downloads/">instruções</a>.</p>
+
+</ul>
+<pre><code class="julia hljs">Para testar, verifique que o Julia foi instalado abrindo o terminal de
+Julia, e verificando que o texto introdutório contém <span class=hljs-string >`Version 0.x.x`</span>.</code></pre>
+<ul>
+<li><p>Um editor de texto, preferencialmente com suporte a UTF-8, código colorido</p>
+
+</ul>
+<pre><code class="julia hljs">automaticamente, indentação automática e inclusão de espaços no lugar de
+TAB. Existem algumas opções, e se você não tem preferência nenhuma, o
+[atom.io](https://atom.io/) é um bom para começar. Se <span class=hljs-keyword >for</span> usá-lo,
+recomendamos buscar pelo pacote <span class=hljs-string >`language-julia`</span>.</code></pre>
+<p><strong>Certifique-se de ter essas ferramentas instaladas ANTES do evento</strong>. Entre em contato em caso de dúvidas.</p>
+<h1 id="inscrições"><a href="#inscrições" class=header-anchor >Inscrições</a></h1>
+<p>As inscrições estão fechadas. Caso tenha interesse em participar, me mande um e-mail para confirmar se ainda temos vagas.</p>
+<h1 id=cronograma ><a href="#cronograma" class=header-anchor >Cronograma</a></h1>
+<p>O evento acontecerá no dia 30 de Maio de 2015, seguindo o cronograma abaixo: &#40;<em>Nota: Mudamos o horário de Julia para melhor acomodar o cronograma</em>&#41;.</p>
+<ul>
+<li><p><strong>08:00</strong> : Abertura</p>
+
+<li><p><strong>08:30</strong> : Bash &#40;com Raniere&#41;</p>
+
+<li><p><strong>09:30</strong> : <em>Coffee Break</em></p>
+
+<li><p><strong>10:00</strong> : Julia &#40;com Abel&#41;</p>
+
+<li><p><strong>11:30</strong> : Almoço</p>
+
+<li><p><strong>13:30</strong> : Git Local &#40;com Abel&#41;</p>
+
+<li><p><strong>15:00</strong> : <em>Coffee Break</em></p>
+
+<li><p><strong>15:30</strong> : Git Remoto &#40;com Raniere&#41;</p>
+
+</ul>
+<h1 id=local ><a href="#local" class=header-anchor >Local</a></h1>
+<p>Utilizaremos o Laboratório de Matemática e Desenho &#40;LAMADE&#41; no bloco PC, sala PC12.</p>
+</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="container text-center social-footer">
+    <a href="mailto:abel.s.siqueira@gmail.com">
+        <i class="fas fa-2x fa-envelope" aria-hidden=true ></i>
+    </a><a href="https://github.com/abelsiqueira">
+        <i class="fab fa-2x fa-github-square" aria-hidden=true ></i>
+    </a><a href="https://linkedin.com/in/abel-siqueira/">
+        <i class="fab fa-2x fa-linkedin" aria-hidden=true ></i>
+    </a><a href="https://twitter.com/abel_siqueira">
+        <i class="fab fa-2x fa-twitter-square" aria-hidden=true ></i>
+    </a><a href="https://www.researchgate.net/profile/Abel_Siqueira">
+        <i class="fab fa-2x fa-researchgate" aria-hidden=true ></i>
+    </a><a href="http://orcid.org/0000-0003-4451-281X">
+        <i class="fab fa-2x fa-orcid" aria-hidden=true ></i>
+    </a>
+</div>
+</footer>
+
+
+
+
+
+
+
+<script src="/blog/libs/bootstrap.bundle.min.js" crossorigin=anonymous ></script>
+<script src="https://kit.fontawesome.com/d17d5e5245.js" crossorigin=anonymous ></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/pcooksey/bibtex-js/ef59e62c/src/bibtex_js.js"></script>

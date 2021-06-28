@@ -1,0 +1,101 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blog/libs/highlight/github.min.css"> <link href="/blog/css/bootstrap.min.css" rel=stylesheet  crossorigin=anonymous > <link rel=icon  href="/blog/images/logo.png"> <link rel=stylesheet  href="/blog/css/code-katex.css"> <link rel=stylesheet  href="/blog/css/custom.css"> <link rel=stylesheet  href="/blog/css/dark-mode.css"> <link rel=preconnect  href="https://fonts.gstatic.com"> <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat&display=swap" rel=stylesheet > <title>Package Development in Julia 1.0 using the REPL</title> <meta property="og:title" content="Abel Soares Siqueira"> <meta name="twitter:title" content="Abel Soares Siqueira"> <meta property="og:description" content="Package Development in Julia 1.0 using the REPL"> <meta name="twitter:description" content="Package Development in Julia 1.0 using the REPL"> <meta property="og:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta name="twitter:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta property="og:url" content=abelsiqueira.github.io > <meta name="twitter:card" content=summary_large_image > <header> <nav class="navbar navbar-expand-lg"> <div class=container-fluid > <a class="navbar-brand text-end" href="/blog/"></a> <button class=navbar-toggler  type=button  data-bs-toggle=collapse  data-bs-target="#navbarSupportedContent" aria-controls=navbarSupportedContent  aria-expanded=false  aria-label="Toggle navigation"> <span class=navbar-toggler-icon ></span> </button> <div class="collapse navbar-collapse" id=navbarSupportedContent > <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <li class=nav-item ><a class=nav-link  href="/blog/">Home</a> <li class=nav-item ><a class=nav-link  href="/blog/blog/">Blog</a> <li class=nav-item ><a class=nav-link  href="/blog/julia/">Julia</a> <li class=nav-item ><a class=nav-link  href="/blog/research/">Research</a> <li class=nav-item ><a class=nav-link  href="/blog/ufpr/">UFPR</a> </ul> <div class="dark-switch form-check form-switch"> <input type=checkbox  class=form-check-input  id=darkSwitch  /> <label class=custom-control-label  for=darkSwitch >Dark Mode</label> </div> <script src="/blog/libs/dark-mode-switch.min.js"></script> </div> </div> </nav> </header> <div class=container-fluid > <div class="container main-text"> <div class=franklin-content ><h1 id=package_development_in_julia_10_using_the_repl ><a href="#package_development_in_julia_10_using_the_repl" class=header-anchor >Package Development in Julia 1.0 using the REPL</a></h1> <p>This is a quick post on package development in Julia 1.0. Let me know if you&#39;re interested in more, and what.</p> <p>Suppose you&#39;re developing a package - say, <code>MyPackage.jl</code> - whether from scratch, or updating from Julia 0.6. First, and foremost, you need to be able to run and test it. On Julia 1.0, this is one possible way, while using the REPL.</p> <p><strong>Choose a folder to develop it and create the necessary files</strong></p> <p>You&#39;ll need</p> <ul> <li><p>MyPackage.jl/</p> <ul> <li><p>src/</p> </ul> </ul> <pre><code class="julia hljs">- MyPackage.jl</code></pre>
+<ul>
+<li><p>test/</p>
+
+</ul>
+<pre><code class="julia hljs">- runtests.jl</code></pre>
+<ul>
+<li><p>README.md &#40;eventually&#41;</p>
+
+<li><p>LICENSE.md &#40;eventually&#41;</p>
+
+<li><p>.travis.yml &#40;eventually&#41;</p>
+
+</ul>
+<p>The file <code>src/MyPackage.jl</code> is the file included by Julia when you enter <code>Using MyPackage</code>. <code>test/runtests.jl</code> is what is run to test your package. It is required if you intend to publish your package, but most important, you need to test your package before trying to publish it. README gives information about your package, LICENSE gives information about its license, and .travis.yml defines the online testing with continuous integration by Travis. These are usual, but not require when you&#39;re starting to develop your package.</p>
+<p>For instance, consider the following files</p>
+<pre><code class="julia hljs"><span class=hljs-comment ># src/MyPackage.jl</span>
+<span class=hljs-keyword >module</span> MyPackage
+
+<span class=hljs-keyword >export</span> pi_approximation
+
+<span class=hljs-keyword >function</span> pi_approximation()
+  <span class=hljs-keyword >return</span> <span class=hljs-number >22.0</span> / <span class=hljs-number >7.0</span>
+<span class=hljs-keyword >end</span>
+
+<span class=hljs-keyword >end</span> <span class=hljs-comment ># module</span></code></pre>
+<pre><code class="julia hljs"><span class=hljs-comment ># test/runtests.jl</span>
+<span class=hljs-keyword >using</span> MyPackage, Test
+
+<span class=hljs-keyword >function</span> tests()
+  <span class=hljs-meta >@testset</span> <span class=hljs-string >&quot;Subset of tests&quot;</span> <span class=hljs-keyword >begin</span>
+    <span class=hljs-meta >@test</span> pi_approximation() ≈ <span class=hljs-literal >pi</span> atol=<span class=hljs-number >1e-2</span>
+  <span class=hljs-keyword >end</span>
+<span class=hljs-keyword >end</span>
+
+tests()</code></pre>
+<p><strong>Open the REPL and add your package under the development version</strong></p>
+<p><em>I assume Linux, but this will work with minor modifications on OSX and Windows.</em></p>
+<p>On the terminal, enter julia to open the REPL</p>
+<pre><code class="julia hljs">julia&gt;</code></pre>
+<p>Enter <code>pkg</code> mode by pressing <code>&#93;</code>.</p>
+<pre><code class="julia hljs">(v1<span class=hljs-number >.0</span>) pkg&gt;</code></pre>
+<p>Inform <code>pkg</code> that your package folder exists and is under development with <code>dev</code>.</p>
+<pre><code class="julia hljs">(v1<span class=hljs-number >.0</span>) pkg&gt; dev SOME_PATH/MyPackage.jl
+
+[ Info: Assigning UUID XXXXXX to MyPackage
+ Resolving package versions...
+  Updating <span class=hljs-string >`~/.julia/environments/v1.0/Project.toml`</span>
+  [XXX] + MyPackage v0<span class=hljs-number >.0</span><span class=hljs-number >.0</span> [<span class=hljs-string >`SOME_PATH/MyPackage.jl`</span>]
+  Updating <span class=hljs-string >`~/.julia/environments/v1.0/Manifest.toml`</span>
+  [XXX] + MyPackage v0<span class=hljs-number >.0</span><span class=hljs-number >.0</span> [<span class=hljs-string >`SOME_PATH/MyPackage.jl`</span>]</code></pre>
+<p>Check that you can see your package</p>
+<pre><code class="julia hljs">(v1<span class=hljs-number >.0</span>) pkg&gt; status
+    Status <span class=hljs-string >`~/.julia/environments/v1.0/Project.toml`</span>
+  ...
+  [XXX] MyPackage v0<span class=hljs-number >.0</span><span class=hljs-number >.0</span> [<span class=hljs-string >`SOME_PATH/MyPackage.jl`</span>]
+  ...</code></pre>
+<p>Check that everything passes according to your &#40;evil&#41; plan.</p>
+<pre><code class="julia hljs">(v1<span class=hljs-number >.0</span>) pkg&gt; test MyPackage
+   Testing MyPackage
+ Resolving package versions...
+    Status <span class=hljs-string >`/tmp/tmpO7CsSr/Manifest.toml`</span>
+  [XXX] MyPackage v0<span class=hljs-number >.0</span><span class=hljs-number >.0</span> [<span class=hljs-string >`SOME_PATH/MyPackage.jl`</span>]
+  ...
+Test Summary:   | Pass  Total
+Subset of tests |    <span class=hljs-number >1</span>      <span class=hljs-number >1</span>
+   Testing MyPackage tests passed</code></pre>
+<p>When you&#39;re done with your package, you can <code>rm MyPackage</code> to remove your package from consideration without deleting the code.</p>
+<p>If your package was already released, then it&#39;ll have a different version number. Other differences may apply.</p>
+</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="container text-center social-footer">
+    <a href="mailto:abel.s.siqueira@gmail.com">
+        <i class="fas fa-2x fa-envelope" aria-hidden=true ></i>
+    </a><a href="https://github.com/abelsiqueira">
+        <i class="fab fa-2x fa-github-square" aria-hidden=true ></i>
+    </a><a href="https://linkedin.com/in/abel-siqueira/">
+        <i class="fab fa-2x fa-linkedin" aria-hidden=true ></i>
+    </a><a href="https://twitter.com/abel_siqueira">
+        <i class="fab fa-2x fa-twitter-square" aria-hidden=true ></i>
+    </a><a href="https://www.researchgate.net/profile/Abel_Siqueira">
+        <i class="fab fa-2x fa-researchgate" aria-hidden=true ></i>
+    </a><a href="http://orcid.org/0000-0003-4451-281X">
+        <i class="fab fa-2x fa-orcid" aria-hidden=true ></i>
+    </a>
+</div>
+</footer>
+
+
+
+
+
+
+
+<script src="/blog/libs/bootstrap.bundle.min.js" crossorigin=anonymous ></script>
+<script src="https://kit.fontawesome.com/d17d5e5245.js" crossorigin=anonymous ></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/pcooksey/bibtex-js/ef59e62c/src/bibtex_js.js"></script>

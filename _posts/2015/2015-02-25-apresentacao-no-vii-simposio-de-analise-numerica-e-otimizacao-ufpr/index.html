@@ -1,0 +1,121 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blog/libs/highlight/github.min.css"> <link href="/blog/css/bootstrap.min.css" rel=stylesheet  crossorigin=anonymous > <link rel=icon  href="/blog/images/logo.png"> <link rel=stylesheet  href="/blog/css/code-katex.css"> <link rel=stylesheet  href="/blog/css/custom.css"> <link rel=stylesheet  href="/blog/css/dark-mode.css"> <link rel=preconnect  href="https://fonts.gstatic.com"> <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat&display=swap" rel=stylesheet > <title>Apresentação no VII Simpósio de Análise Numérica e Otimização - UFPR</title> <meta property="og:title" content="Abel Soares Siqueira"> <meta name="twitter:title" content="Abel Soares Siqueira"> <meta property="og:description" content="Apresentação no VII Simpósio de Análise Numérica e Otimização - UFPR"> <meta name="twitter:description" content="Apresentação no VII Simpósio de Análise Numérica e Otimização - UFPR"> <meta property="og:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta name="twitter:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta property="og:url" content=abelsiqueira.github.io > <meta name="twitter:card" content=summary_large_image > <header> <nav class="navbar navbar-expand-lg"> <div class=container-fluid > <a class="navbar-brand text-end" href="/blog/"></a> <button class=navbar-toggler  type=button  data-bs-toggle=collapse  data-bs-target="#navbarSupportedContent" aria-controls=navbarSupportedContent  aria-expanded=false  aria-label="Toggle navigation"> <span class=navbar-toggler-icon ></span> </button> <div class="collapse navbar-collapse" id=navbarSupportedContent > <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <li class=nav-item ><a class=nav-link  href="/blog/">Home</a> <li class=nav-item ><a class=nav-link  href="/blog/blog/">Blog</a> <li class=nav-item ><a class=nav-link  href="/blog/julia/">Julia</a> <li class=nav-item ><a class=nav-link  href="/blog/research/">Research</a> <li class=nav-item ><a class=nav-link  href="/blog/ufpr/">UFPR</a> </ul> <div class="dark-switch form-check form-switch"> <input type=checkbox  class=form-check-input  id=darkSwitch  /> <label class=custom-control-label  for=darkSwitch >Dark Mode</label> </div> <script src="/blog/libs/dark-mode-switch.min.js"></script> </div> </div> </nav> </header> <div class=container-fluid > <div class="container main-text"> <div class=franklin-content ><h1 id="apresentação_no_vii_simpósio_de_análise_numérica_e_otimização_-_ufpr"><a href="#apresentação_no_vii_simpósio_de_análise_numérica_e_otimização_-_ufpr" class=header-anchor >Apresentação no VII Simpósio de Análise Numérica e Otimização - UFPR</a></h1> <p>No dia 24 de Fevereiro de 2015 aconteceu o &#40;primeiro dia do&#41; VII Simpósio de Análise Numérica e Otimização. Participei deste congresso fazendo uma apresentação sobre <a href="/blog/blog//assets/2015-02-25-vii-simposio.pdf">Ferramentas Computacionais para Pesquisadores</a> &#40;ver <a href="http://github.com/abelsiqueira/pres-ferramentas-computacionais">código</a>&#41;.</p> <p>Nesta apresentação, introduzo algumas ferramentas que considero bastante importantes para pesquisadores, principalmente da área de matemática computacional. Um resumo do que apresento é</p> <ul> <li><p>Aprenda outras linguagens. Recomendo, por exemplo, conhecer Python ou Ruby,</p> </ul> <pre><code class="julia hljs">Shell e Makefile. Com essas ferramentas já é possível automatizar testes e
+fazer scripts com uso variado. Makefile, por exemplo, é uma das maneiras
+mais usadas de se instalar programas (no Unix).</code></pre> <ul> <li><p>Conheça a linguagem <a href="http://www.julialang.org">Julia</a>.</p> </ul> <pre><code class="julia hljs">É uma linguagem com foco na matemática computacional, considerando ainda que
+você irá querer utilizar código em C e Fortran, e com sintaxe parecido com a
+de MatLab/Octave. É uma linguagem nova, mas tem potencial para ser o próximo
+concorrente <span class=hljs-keyword >do</span> MatLab/Octave, e é livre.
+- Dentro <span class=hljs-keyword >do</span> Julia, conheça o [JuliaOpt](http://www.juliaopt.org), que é
+um grupo que está desenvolvendo ferramentas de otimização em Julia.
+Desde interfaces para softwares conhecidos, até linguagens de modelagem,
+passando por implementações de métodos de otimização não-linear, tanto
+puramente em Julia, quanto utilizando códigos de baixo nível.
+- Também anunciei que estamos trabalhando no
+[CUTEst.jl](http://github.com/optimizers/CUTEst.jl), uma interface para o
+[CUTEst](http://ccpforge.cse.rl.ac.uk/gf/project/cutest/wiki).</code></pre> <ul> <li><p>Escolha um editor e um ambiente de desenvolvimento.</p> </ul> <pre><code class="julia hljs">Sugiro ver algumas opções (Vim, Emacs, Atom, Sublime <span class=hljs-built_in >Text</span>, Eclipse), testar,
+e ver qual combina mais com você. Em adição, conheça o Sharelatex e/ou o
+Writelatex.</code></pre> <ul> <li><p>Conheça o <a href="http://github.com/abelsiqueira/perprof-py">perprof-py</a>,</p> </ul> <pre><code class="julia hljs">que é uma ferramenta para gerar perfis de desempenho, com gráficos de alta
+qualidade.</code></pre> <ul> <li><p>Conheça o <a href="http://git-scm.com">git</a>, que é uma ferramenta para controle de</p> </ul> <pre><code class="julia hljs">versão, que você pode usar sozinho; ou em grupo; fazer ramificações;
+verificar versões anteriores; misturar versões; trabalhar online; dentro
+outras.
+- Conheça o [GitHub](http://github.com), que é um site onde você pode
+colocar o código que foi feito com git.
+- Conheça o [Travis CI](http://travis-ci.org), que é um serviço que baixa
+seu código <span class=hljs-keyword >do</span> GitHub e roda testes (definidos por você) nele, sempre que
+você subir o seu código.
+- Conheça o [Coveralls.io](http://coveralls.io), que é um serviço que
+verifica seus testes e diz que parte <span class=hljs-keyword >do</span> seu código foi verificado, e qual
+não foi.</code></pre> <ul> <li><p>TikZ e PgfPlots do Latex: Comentei um pouco sobre gráficos usando esses</p> </ul> <pre><code class="julia hljs">pacotes, e mostrei alguns exemplos.</code></pre>
+<p>Também falei sobre o <a href="http://www.software-carpentry.org">Software Carpentry</a>, que é uma organização sem fins lucrativos que realiza workshops e promove conhecimento mundialmente. Comentei também sobre o trabalho do <a href="http://rgaiacs.com">Raniere Silva</a> no Software Carpentry, e do <a href="http://catarse.me/pt/programacaocientifica">trabalho que ele está propondo</a> para os próximos meses.</p>
+<p>Algumas boas perguntas foram feitas, e gostaria de parafraseá-las e atualizar minha resposta para algumas delas.</p>
+<ul>
+<li><p><strong>Por que sair do MatLab para o Julia?</strong></p>
+
+</ul>
+<pre><code class="julia hljs">Recomendo sair <span class=hljs-keyword >do</span> MatLab porque ele é um software proprietário, pra começar.
+Mas desconsiderando isso, e também considerando o Octave, dou a seguinte
+resposta: O Julia está sendo desenvolvido com o intuito de substituir o
+MatLab, sabendo que o matemático computacional costuma fazer código que
+precisa de velocidade em C ou Fortran.
+A interface para C e Fortran em Julia é consideravelmente fácil,
+e isso facilita o processo de criar um código que você vê que funciona, e
+posteriormente otimizá-lo.
+Gostaria de acrescentar a ressalva que Julia é uma linguagem nova, e
+obviamente não tem tudo que gostaríamos implementado. Seu código pode
+quebrar. Mas vale a pena conhecer para saber se vale investir.</code></pre>
+<ul>
+<li><p><strong>Por que sair do Python para o Julia?</strong></p>
+
+</ul>
+<pre><code class="julia hljs">Não sei se você deve. O Python básico não é suficiente para um matemático
+computacional, mas eu sei que existem vários pacotes que conseguem deixar o
+Python muito eficiente para Análise Numérica e Otimização. Também é possível
+fazer uma transição C com Python, mas não conheço, logo não posso julgar.
+Atualmente, provavelmente, o Python parece ser mais eficiente.
+E já que estamos aqui, se você conseguir tirar alguém <span class=hljs-keyword >do</span> MatLab para o
+Python, já é uma vitória.</code></pre>
+<ul>
+<li><p>**Por que usar o TikZ/PgfPlots no lugar desta outra ferramenta de</p>
+
+</ul>
+<pre><code class="julia hljs">gráficos?**
+Se <span class=hljs-keyword >for</span> o MatLab, vide meu _rant_ anterior sobre MatLab ser proprietário.
+Para outras ferramentas, não sei. Muitas ferramentas fazem um trabalho, no
+mínimo, tão bom quanto o TikZ/PgfPlots, e.g., o MatplotLib (que
+usamos no perprof, junto com o PgfPlots).
+Uma coisa que eu gosto é misturar com o Beamer, gerando figuras iterativas
+(não interativas).
+Então, alguns comandos podem ser misturados para fazer uma sequência de
+figuras que o Beamer vai descobrindo (por exemplo o caminho de um
+algoritmo).</code></pre>
+<ul>
+<li><p>**Se fosse para você escolher apenas uma dessas ferramentas para</p>
+
+</ul>
+<pre><code class="julia hljs">recomendar, qual seria?**
+Sem dúvida o git, que é útil para qualquer área onde você escreve código, ou
+até mesmo um artigo em .tex (ou outros formatos binários de texto).
+Você nunca sabe quando vai precisar voltar numa versão anterior <span class=hljs-keyword >do</span> código.
+Por exemplo, você faz atualizações no seu código, e alguém diz que estava
+usando o seu código antes, mas depois que essa pessoa atualizou, o código
+parou de funcionar.
+Bem, como fazer pra saber o que quebrou o código? Se você está fazendo o
+controle corretamente, você terá vários _commits_ indicando o trabalho
+feito. Você pode navegar nesses commits e descubrir a última versão que
+funcionava. Assim você reduz consideravelmente a quantidade de código que
+pode ter estragado o seu pacote.
+Além disso, você pode trabalhar com versões paralelas, colaborativamente, e
+ainda aproveitar de serviços fantásticos para quem usa git (GitHub, Travis,
+Coveralls).</code></pre>
+<p>É importante ficar claro que eu não estou apresentado as melhores ferramentas para seus respectivos objetivos, apenas aquelas que eu conheço e que podem resolver o problema. Talvez alguma ferramenta seja melhor do que a que eu apresentei, mas o ponto é você conhecer alguma ferramenta, e às vezes conhecer alguma nova.</p>
+</div>
+</div>
+</div>
+</div>
+
+<footer>
+<div class="container text-center social-footer">
+    <a href="mailto:abel.s.siqueira@gmail.com">
+        <i class="fas fa-2x fa-envelope" aria-hidden=true ></i>
+    </a><a href="https://github.com/abelsiqueira">
+        <i class="fab fa-2x fa-github-square" aria-hidden=true ></i>
+    </a><a href="https://linkedin.com/in/abel-siqueira/">
+        <i class="fab fa-2x fa-linkedin" aria-hidden=true ></i>
+    </a><a href="https://twitter.com/abel_siqueira">
+        <i class="fab fa-2x fa-twitter-square" aria-hidden=true ></i>
+    </a><a href="https://www.researchgate.net/profile/Abel_Siqueira">
+        <i class="fab fa-2x fa-researchgate" aria-hidden=true ></i>
+    </a><a href="http://orcid.org/0000-0003-4451-281X">
+        <i class="fab fa-2x fa-orcid" aria-hidden=true ></i>
+    </a>
+</div>
+</footer>
+
+
+
+
+
+
+
+<script src="/blog/libs/bootstrap.bundle.min.js" crossorigin=anonymous ></script>
+<script src="https://kit.fontawesome.com/d17d5e5245.js" crossorigin=anonymous ></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/pcooksey/bibtex-js/ef59e62c/src/bibtex_js.js"></script>

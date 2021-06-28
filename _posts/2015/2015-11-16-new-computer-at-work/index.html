@@ -1,0 +1,53 @@
+<!doctype html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1"> <link rel=stylesheet  href="/blog/libs/highlight/github.min.css"> <link href="/blog/css/bootstrap.min.css" rel=stylesheet  crossorigin=anonymous > <link rel=icon  href="/blog/images/logo.png"> <link rel=stylesheet  href="/blog/css/code-katex.css"> <link rel=stylesheet  href="/blog/css/custom.css"> <link rel=stylesheet  href="/blog/css/dark-mode.css"> <link rel=preconnect  href="https://fonts.gstatic.com"> <link href="https://fonts.googleapis.com/css2?family=Cinzel&family=Montserrat&display=swap" rel=stylesheet > <title>New computer at work</title> <meta property="og:title" content="Abel Soares Siqueira"> <meta name="twitter:title" content="Abel Soares Siqueira"> <meta property="og:description" content="New computer at work"> <meta name="twitter:description" content="New computer at work"> <meta property="og:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta name="twitter:image" content="https://abelsiqueira.github.io/images/abel-banner.jpg"> <meta property="og:url" content=abelsiqueira.github.io > <meta name="twitter:card" content=summary_large_image > <header> <nav class="navbar navbar-expand-lg"> <div class=container-fluid > <a class="navbar-brand text-end" href="/blog/"></a> <button class=navbar-toggler  type=button  data-bs-toggle=collapse  data-bs-target="#navbarSupportedContent" aria-controls=navbarSupportedContent  aria-expanded=false  aria-label="Toggle navigation"> <span class=navbar-toggler-icon ></span> </button> <div class="collapse navbar-collapse" id=navbarSupportedContent > <ul class="navbar-nav ms-auto mb-2 mb-lg-0"> <li class=nav-item ><a class=nav-link  href="/blog/">Home</a> <li class=nav-item ><a class=nav-link  href="/blog/blog/">Blog</a> <li class=nav-item ><a class=nav-link  href="/blog/julia/">Julia</a> <li class=nav-item ><a class=nav-link  href="/blog/research/">Research</a> <li class=nav-item ><a class=nav-link  href="/blog/ufpr/">UFPR</a> </ul> <div class="dark-switch form-check form-switch"> <input type=checkbox  class=form-check-input  id=darkSwitch  /> <label class=custom-control-label  for=darkSwitch >Dark Mode</label> </div> <script src="/blog/libs/dark-mode-switch.min.js"></script> </div> </div> </nav> </header> <div class=container-fluid > <div class="container main-text"> <div class=franklin-content ><h1 id=new_computer_at_work ><a href="#new_computer_at_work" class=header-anchor >New computer at work</a></h1> <p>I just got a new notebook at work. This is a HP computer, with a AMD a10-4600M processor, 4GB of RAM and 320GB of HD space. I have a personal notebook with a similar configuration and my work desktop also has a similar configuration, so this isn&#39;t a great improvement. However, we&#39;re gonna have an additional monitor, so this is good enough. Also, I&#39;ll leave the other one as the always-on screen&#43;irssi computer. Let&#39;s try to use it. Talk to me again in a week.</p> <p>I&#39;ll leave a list of commands I used to install Archlinux on it for future reference. Maybe someday I&#39;ll comment it, but most things here can be found on <a href="https://wiki.archlinux.org/index.php/beginners&#39;_guide">the beginners&#39; guide</a>.</p> <pre><code class="julia hljs">ls /sys/firmware/efi/efivars
+ip link set enp1s0 down
+netctl start MYCONFIGURATION
+mkparted /dev/sda
+mklabel gpt
+parted /dev/sda
+(parted) mkpart primary ext4 <span class=hljs-number >1</span>MiB <span class=hljs-number >100</span>MiB
+(parted) set <span class=hljs-number >1</span> boot on
+(parted) mkpart primary ext4 <span class=hljs-number >100</span>MiB <span class=hljs-number >30</span>GiB
+(parted) mkpart primary linux-swap <span class=hljs-number >30</span>GiB <span class=hljs-number >38</span>GiB
+(parted) mkpart primary ext4 <span class=hljs-number >38</span>GiB <span class=hljs-number >100</span>%
+(parted) quit
+mkfs.ext4 /dev/sda1
+mkfs.ext4 /dev/sda2
+mkfs.ext4 /dev/sda4
+mkswap /dev/sda3
+swapon /dev/sda3
+mount /dev/sda2 /mnt
+mkdir -p /mnt/{boot,home}
+mount /dev/sda1 /mnt/boot
+mount /dev/sda4 /mnt/home
+cd /etc/pacman.d
+cp mirrorlist{,.bk}
+<span class=hljs-comment >#grep Brazil -A 1 mirrorlist.bk | sed &#x27;/--/d&#x27; &gt; mirrorlist</span>
+grep c3sl -B <span class=hljs-number >1</span> mirrorlist.bk &gt; mirrorlist
+pacstrap -i /mnt base base-devel vim screen git
+genfstab -U /mnt &gt; /mnt/etc/fstab
+arch-chroot /mnt /bin/bash
+vim /etc/locale.gen <span class=hljs-comment ># Uncomment en_US.UTF-8 and others</span>
+locate-gen
+echo LANG=en_US.UTF-<span class=hljs-number >8</span> &gt; /etc/locale.conf
+ln -s /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+hwclock --systohc --utc
+mkinitcpio -p linux
+pacman -S syslinux gptfdisk
+syslinux-install_update -i -a -m
+vim /boot/syslinux/syslinux.cfg
+echo myhostname &gt; /etc/hostname
+pacman -S iw wpa_supplicant dialog
+passwd
+exit <span class=hljs-comment ># From the chroot</span>
+cp /etc/netctl/ufpr-static /mnt/etc/netctl/ufpr-static
+umount -R /mnt
+reboot</code></pre> <pre><code class="julia hljs">netctl start ufpr-static
+pacman -S xorg-server i3-wm i3lock i3status xorg-xinit xorg-twm xterm dmenu
+pacman -S xf86-input-synaptics
+useradd abel -g users -G wheel -m -s /bin/bash
+passwd abel
+visudo
+<span class=hljs-comment ># Log as abel</span>
+startx <span class=hljs-comment ># possibly pkill X</span>
+<span class=hljs-comment ># Download b43-firmware and install it</span>
+<span class=hljs-comment ># Rejoice</span></code></pre> </div> </div> </div> </div> <footer> <div class="container text-center social-footer"> <a href="mailto:abel.s.siqueira@gmail.com"> <i class="fas fa-2x fa-envelope" aria-hidden=true ></i> </a><a href="https://github.com/abelsiqueira"> <i class="fab fa-2x fa-github-square" aria-hidden=true ></i> </a><a href="https://linkedin.com/in/abel-siqueira/"> <i class="fab fa-2x fa-linkedin" aria-hidden=true ></i> </a><a href="https://twitter.com/abel_siqueira"> <i class="fab fa-2x fa-twitter-square" aria-hidden=true ></i> </a><a href="https://www.researchgate.net/profile/Abel_Siqueira"> <i class="fab fa-2x fa-researchgate" aria-hidden=true ></i> </a><a href="http://orcid.org/0000-0003-4451-281X"> <i class="fab fa-2x fa-orcid" aria-hidden=true ></i> </a> </div> </footer> <script src="/blog/libs/bootstrap.bundle.min.js" crossorigin=anonymous ></script> <script src="https://kit.fontawesome.com/d17d5e5245.js" crossorigin=anonymous ></script> <script type="text/javascript" src="https://cdn.rawgit.com/pcooksey/bibtex-js/ef59e62c/src/bibtex_js.js"></script>

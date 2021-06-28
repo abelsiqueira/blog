@@ -13,7 +13,7 @@ I recommend you watch the video for complete information.
 The game involves a graph with integer values on its nodes, positive and
 negative. For instance, the following graph:
 
-![]({{prepath}}/assets/2018-09-04/example.png)
+![]({{local_prefix}}/assets/2018-09-04/example.png)
 
 Each **node** corresponds to a person, the **node value** is the amount of
 money that person has, the **edges** are the people that person can give or
@@ -90,11 +90,11 @@ Using the results and ~~*mad plotting skillz*~~ the packages Plots and GR, we
 obtain a solution for the problem above. The moves are illustrated below, where
 blue means giving, and red means taking.
 
-![]({{prepath}}/assets/2018-09-04/example-000.png)
-![]({{prepath}}/assets/2018-09-04/example-001.png)
-![]({{prepath}}/assets/2018-09-04/example-002.png)
-![]({{prepath}}/assets/2018-09-04/example-003.png)
-![]({{prepath}}/assets/2018-09-04/example-004.png)
-![]({{prepath}}/assets/2018-09-04/example-005.png)
+![]({{local_prefix}}/assets/2018-09-04/example-000.png)
+![]({{local_prefix}}/assets/2018-09-04/example-001.png)
+![]({{local_prefix}}/assets/2018-09-04/example-002.png)
+![]({{local_prefix}}/assets/2018-09-04/example-003.png)
+![]({{local_prefix}}/assets/2018-09-04/example-004.png)
+![]({{local_prefix}}/assets/2018-09-04/example-005.png)
 
 The full code is available at [GitHub](https://github.com/abelsiqueira/DollarGame.jl).

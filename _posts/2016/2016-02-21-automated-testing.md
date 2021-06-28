@@ -285,7 +285,7 @@ And create a `README.md`
 # BlogAutomatedTesting.jl
 
 This package was created from the tutorial on
-[Abel Siqueira's blog]({{ site.url }}/{{prepath}}{{ post.url }})
+[Abel Siqueira's blog]({{ site.url }}/{{local_prefix}}{{ post.url }})
 ```
 
 The `LICENSE.md` file is up which license you'll choose.

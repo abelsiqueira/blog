@@ -7,8 +7,8 @@
 # Professional site and blog for researchers, professors and students
 
 
-TL; DR: Make a professional web page, like [mine]({{prepath}}/../),
-and/or a blog, like [mine]({{prepath}}). Use
+TL; DR: Make a professional web page, like [mine]({{local_prefix}}/../),
+and/or a blog, like [mine]({{local_prefix}}). Use
 [Jekyll](https://jekyllrb.com/) and my links:
 [work page](http://github.com/abelsiqueira/abelsiqueira.github.io),
 [blog page](http://github.com/abelsiqueira/blog).
@@ -81,7 +81,7 @@ a new blog post, but now you want to make it look good.
 To create a page that is not a post, like my `about` page, you can simply create
 a file inside the folder, create a similar header, and write the page. See my
 own
-[about.md](https://raw.githubusercontent.com/abelsiqueira{{prepath}}gh-pages/about.md).
+[about.md](https://raw.githubusercontent.com/abelsiqueira{{local_prefix}}gh-pages/about.md).
 
 The first thing you'll notice is the `layout` part. In the folder `_layouts`
 there are some templates for a site. For instance, the "default" layout is an
@@ -211,7 +211,7 @@ a default site location.
  - Delete all posts in `_posts`, except maybe one to use as a beginning point.
  - Write your post.
 
-If you access `http://youruser.github.io{{prepath}}`, you'll see your blog. Notice
+If you access `http://youruser.github.io{{local_prefix}}`, you'll see your blog. Notice
 that, if you haven't created the work page, `http://youruser.github.io` won't
 exist, although your blog will.
 Also, you won't want the `Work` entry on the navigation bar.

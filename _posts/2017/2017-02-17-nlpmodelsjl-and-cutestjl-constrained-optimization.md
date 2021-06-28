@@ -8,7 +8,7 @@
 
 
 This is a continuation of [this
-post](https://abelsiqueira.github.io{{prepath}}nlpmodelsjl-cutestjl-and-other-nonlinear-optimization-packages-on-julia/).
+post](https://abelsiqueira.github.io{{local_prefix}}nlpmodelsjl-cutestjl-and-other-nonlinear-optimization-packages-on-julia/).
 And again, you can follow the commands of this post in the
 [asciinema](https://asciinema.org/a/103654).
 

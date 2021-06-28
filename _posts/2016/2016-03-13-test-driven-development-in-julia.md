@@ -51,7 +51,7 @@ around.
 ## Julia
 
 First, we are gonna follow the *package* layout in Julia.
-[This post]({{prepath}}/automated-testing/) mentions it at the end.
+[This post]({{local_prefix}}/automated-testing/) mentions it at the end.
 Basically, we need
 
   - Folder PackageName.jl

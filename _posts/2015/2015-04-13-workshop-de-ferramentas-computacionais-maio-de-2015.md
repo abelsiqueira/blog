@@ -48,7 +48,7 @@ expansão por nova.
 
 # Ministrantes
 
-  - [Eu]({{prepath}}/) - Trabalho com GNU/Linux desde minha graduação,
+  - [Eu]({{local_prefix}}/) - Trabalho com GNU/Linux desde minha graduação,
 ```
 e trabalho com software livre. Meus trabalhos individuais são de código
 aberto, e acredito que esse é o caminho mais correto para o desenvolvimento

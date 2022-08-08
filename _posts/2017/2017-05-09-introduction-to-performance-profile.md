@@ -32,7 +32,12 @@ account the number of problems that are solved.
 
 ### Performance Profile
 
-Develop by Dolan and Moré [1], the performance profile takes into account the
+
+Described by Dolan and Moré [1] --
+
+> (Edit: 08/08/2022) Professor André L. Tits brought to my attention the 1996 paper by Tits and Yang [3] that was already doing a profile comparison using a cumulative distribution of relative time.
+
+-- the performance profile takes into account the
 number of problems solved as well as the cost it took to solve it. It scaled the
 cost of solving the problem according to the best solver for that problem.
 Given a set of problems $P$ and a set of algorithms $S$, we define
@@ -56,7 +61,7 @@ $$ P_s(t) = \frac{ \#\{p \in P \mid\ r _ {s,p} \leq t\} }{ \#P }. $$
 
 See that $P_s(1)$ is the number of problems such that $r _ {s,p} = 1$, that is
 the number of problems for which algorithm $s$ is one of the best.
-Furthermore, $ P_s(r _ {\max}) $ is the number of problems solved by algorithm
+Furthermore, $P_s(r _ {\max})$ is the number of problems solved by algorithm
 $s$, where
 
 $$r _ {\max} = \max _ {s \in S,\ p \in P} r _ {s,p}. $$
@@ -127,3 +132,8 @@ Perprof-py: A Python Package for Performance Profile of Mathematical
 Optimization Software.
 *Journal of Open Research Software*, 4(1), p.e12, 2016.
 DOI: 10.5334/jors.81.
+
+[3] A.L. Tits and Y. Yang.
+Globally convergent algorithms for robust pole placement by state feedback.
+*IEEE Transactions on Automatic Control*, 41(10):1432-1452, 1996.
+DOI: 10.1109/9.539425.
